@@ -21,7 +21,6 @@ app.get('/', (req, res) => {
 app.use(userAuthRouter);
 //swagger
 app.use(
-  s,
   '/api-docs',
   swaggerUi.serve,
   swaggerUi.setup(swaggerFile, { explorer: true })
