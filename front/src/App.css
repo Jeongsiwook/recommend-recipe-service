@@ -2,3 +2,8 @@
   margin: 0;
   padding: 0;
 }
+
+@font-face {
+  font-family: 'NotoSansKR';
+  src: url('../public/fonts/NotoSansKR-Regular.otf');
+}
