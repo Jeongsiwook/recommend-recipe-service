@@ -83,17 +83,17 @@ const Prolog = () => {
   return (
     <Container>
       <MainIntroduction>
-        <ContentP>
+        <ContentP isOpaicty={true}>
           <p>냉장고를 부탁해!</p>
           <p>냉장고를 부탁해!를 소개합니다.</p>
         </ContentP>
         <ContentImg>
-          <Img alt='냉장고를 부탁해 사진' src='./imgs/sampleImage.jpg' />
+          <Img alt="냉장고를 부탁해 사진" src="./imgs/sampleImage.jpg" />
         </ContentImg>
       </MainIntroduction>
       <BookmarkIntroduction>
         <ContentImg>
-          <Img alt='북마크 사진' src='./imgs/sampleImage.jpg' />
+          <Img alt="북마크 사진" src="./imgs/sampleImage.jpg" />
         </ContentImg>
         <ContentP>
           <p>북마크 기능</p>
@@ -106,12 +106,12 @@ const Prolog = () => {
           <p>커뮤니티 기능에 대한 자세한 설명</p>
         </ContentP>
         <ContentImg>
-          <Img alt='커뮤니티 사진' src='./imgs/sampleImage.jpg' />
+          <Img alt="커뮤니티 사진" src="./imgs/sampleImage.jpg" />
         </ContentImg>
       </CommunityIntroduction>
       <RankingIntroduction>
         <ContentImg>
-          <Img alt='랭킹 사진' src='./imgs/sampleImage.jpg' />
+          <Img alt="랭킹 사진" src="./imgs/sampleImage.jpg" />
         </ContentImg>
         <ContentP>
           <p>랭킹 기능</p>
