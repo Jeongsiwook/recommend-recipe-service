@@ -6,19 +6,15 @@ class Comment {
     }
 
     static findById({ id }) {
-        return CommentModel.find({ id });
-    }
-
-    static find() {
-        return CommentModel.find();
+        return CommentModel.findById(id);
     }
 
     static updateById({ id, toUpdate }) {
-        return CommentModel.findByIdAndUpdate({ id }, toUpdate, { new: true });
+        return CommentModel.findByIdAndUpdate(id, toUpdate, { new: true });
     }
 
     static deleteById({ id }) {
-        return CommentModel.findByIdAndDelete({ id });
+        return CommentModel.findByIdAndDelete(id);
     }
 }
 

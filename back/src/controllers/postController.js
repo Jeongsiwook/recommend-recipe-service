@@ -1,5 +1,4 @@
 import { postService } from "../services/postService";
-import { userService } from "../services/userService";
 
 class postController {
     static async addPost(req, res, next) {
@@ -8,7 +7,7 @@ class postController {
             const { title, recipe, review } = req.body;
 
             const newPost = { title, recipe, review, author };
-            const createdPost = await postService.newPost({ newPost });
+            const createdPost = await postService.addPost({ newPost });
 
             return res.status(200).json(createdPost);
         } catch (error) {
@@ -18,7 +17,7 @@ class postController {
 
     static async getPost(req, res, next) {
         try {
-            const { id } = req.param;
+            const { id } = req.params;
 
             const post = await postService.getPost({ id });
 
@@ -30,11 +29,11 @@ class postController {
 
     static async getRank(req, res, next) {
         try {
-            const { filter, page } = req.param;
+            const { filter, page } = req.params;
 
-            const post = await postService.getRank({ filter, page });
+            const posts = await postService.getRank({ filter, page });
 
-            return res.status(200).json(post);
+            return res.status(200).json(posts);
         } catch (error) {
             next(error);
         }
@@ -42,11 +41,11 @@ class postController {
 
     static async updatePost(req, res, next) {
         try {
-            const { id } = req.param;
+            const { id } = req.params;
             const user_id = req.currentUserId;
             const { title, review } = req.body;
 
-            const author = await postService.getPost({ id }).then((data) => data.author);
+            const author = await postService.getAuthor({ id });
             if (author != user_id) throw new Error("접근 권한이 없습니다.");
 
             const toUpdate = { title, review };
@@ -60,10 +59,10 @@ class postController {
 
     static async deletePost(req, res, next) {
         try {
-            const { id } = req.param;
+            const { id } = req.params;
             const user_id = req.currentUserId;
 
-            const author = await postService.getPost({ id }).then((data) => data.author);
+            const author = await postService.getAuthor({ id });
             if (author != user_id) throw new Error("접근 권한이 없습니다.");
 
             await postService.deletePost({ id });

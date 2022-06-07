@@ -3,7 +3,7 @@ import { Post } from "./models/Post";
 import { User } from "./models/User";
 import { Comment } from "./models/Comment";
 
-const DB_URL = process.env.MONGODB_URL || "";
+const DB_URL = process.env.MONGODB_URL || null;
 if (!DB_URL) throw new Error("MongoDB 서버 주소가 설정되지 않았습니다.");
 
 mongoose.connect(DB_URL);

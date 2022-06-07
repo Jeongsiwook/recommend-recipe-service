@@ -5,27 +5,32 @@ const PostSchema = new Schema(
         title: {
             type: String,
             required: true,
+            trim: true,
         },
         recipe: {
             type: String,
             required: true,
             immutable: true,
+            trim: true,
         },
         review: {
             type: String,
-            required: false,
+            required: true,
+            trim: true,
         },
         author: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true,
         },
-        comments: {
-            type: Array,
-            required: false,
-        },
+        comments: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Comment",
+            },
+        ],
     },
-    { timestamps: true }
+    { timestamps: true },
 );
 
 const PostModel = model("Post", PostSchema);

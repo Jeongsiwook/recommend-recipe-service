@@ -6,19 +6,19 @@ class Post {
     }
 
     static findById({ id }) {
-        return PostModel.findById({ id });
+        return PostModel.findById(id);
     }
 
-    static find() {
-        return PostModel.find();
+    static find({ filter }) {
+        return PostModel.find(filter).sort({ createdAt: -1 });
     }
 
     static updateById({ id, toUpdate }) {
-        return PostModel.findByIeAndUpdate({ id }, toUpdate, { new: true });
+        return PostModel.findByIdAndUpdate(id, toUpdate, { new: true });
     }
 
     static deleteById({ id }) {
-        return PostModel.findOneAndDelete({ id });
+        return PostModel.findByIdAndDelete(id);
     }
 }
 

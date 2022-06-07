@@ -17,7 +17,7 @@ const CommentSchema = new Schema(
             required: true,
         },
     },
-    { timestamps: true }
+    { timestamps: true },
 );
 
 const CommentModel = model("Comment", CommentSchema);
