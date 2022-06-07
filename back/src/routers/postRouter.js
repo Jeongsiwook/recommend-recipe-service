@@ -15,3 +15,5 @@ postRouter.put("/posts/:id", postController.updatePost);
 postRouter.delete("/posts/:id", postController.deletePost);
 
 postRouter.post("/posts/:id/likes", postController.likePost);
+
+export { postRouter };

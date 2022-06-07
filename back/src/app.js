@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "./swagger/swagger-output.json";
-import { userRouter } from "./routers/userRouter";
+import { userAuthRouter } from "./routers/userRouter";
 import { postRouter } from "./routers/postRouter";
 import { commentRouter } from "./routers/commentRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => res.send("AI Recipe API"));
 
-app.use(userRouter);
+app.use(userAuthRouter);
 app.use(postRouter);
 app.use(commentRouter);
 
