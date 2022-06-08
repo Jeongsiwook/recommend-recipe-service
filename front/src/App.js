@@ -9,9 +9,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/prolog' element={<Prolog />} />
+        <Route path='/' element={<Prolog />} />
         <Route path='/home' element={<Home />} />
-        <Route path='*' element={<Home />} />
+        <Route path='/*' element={<Prolog />} />
       </Routes>
     </Router>
   );
