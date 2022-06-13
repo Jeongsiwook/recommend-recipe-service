@@ -10,7 +10,7 @@
     "author": "Team 11",
     "license": "MIT",
     "dependencies": {
-        "@sindresorhus/is": "^5.1.0",
+        "@sindresorhus/is": "^4.6.0",
         "aws-sdk": "^2.1152.0",
         "babel-node": "^0.0.1-security",
         "bcrypt": "^5.0.1",
@@ -50,6 +50,5 @@
         "modulePathIgnorePatterns": [
             "__config__"
         ]
-    },
-    "description": "back -"
+    }
 }
