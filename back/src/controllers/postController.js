@@ -45,8 +45,9 @@ class postController {
             const user_id = req.currentUserId;
             const { title, review } = req.body;
 
-            const author = await postService.getAuthor({ id });
-            if (author != user_id) throw new Error("접근 권한이 없습니다.");
+            const post = await postService.getData({ id });
+            if (!post) throw new Error("게시물을 찾을 수 없습니다.");
+            if (post.author != user_id) throw new Error("접근 권한이 없습니다.");
 
             const toUpdate = { title, review };
             const updatedPost = await postService.updatePost({ id, toUpdate });
@@ -62,8 +63,9 @@ class postController {
             const { id } = req.params;
             const user_id = req.currentUserId;
 
-            const author = await postService.getAuthor({ id });
-            if (author != user_id) throw new Error("접근 권한이 없습니다.");
+            const post = await postService.getData({ id });
+            if (post.author != user_id) throw new Error("접근 권한이 없습니다.");
+            if (!post) throw new Error("게시물을 찾을 수 없습니다.");
 
             await postService.deletePost({ id });
 

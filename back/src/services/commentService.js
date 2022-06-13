@@ -10,20 +10,23 @@ class commentService {
         return Post.updateById({ id, toUpdate });
     }
 
-    static async getComment({ id }) {
+    static getComment({ id }) {
         return Comment.findById({ id });
     }
 
-    static async updateComment({ id, toUpdate }) {
+    static updateComment({ id, toUpdate }) {
         return Comment.updateById({ id, toUpdate });
     }
 
     static async deleteComment({ id }) {
-        const { _id } = await Post.find({ filter: { comments: { $elemMatch: { id } } } });
-        const toUpdate = { $pull: { comments: id } };
-        await Post.updateById({ id: _id, toUpdate });
+        const post = await Post.findOne({ comments: { $in: id } });
 
-        return Comment.deleteById({ id });
+        const toUpdate = { $pull: { comments: id } };
+        await console.log(post);
+        return Promise.all([
+            Post.updateById({ id: post._id, toUpdate }), //
+            Comment.deleteById({ id }),
+        ]);
     }
 }
 

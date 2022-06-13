@@ -1,21 +1,23 @@
-import { Post } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { Post } from "../db";
 
 class postService {
     static addPost({ newPost }) {
         return Post.create({ newPost });
     }
 
-    static getAuthor({ id }) {
-        return Post.findById({ id }).then((data) => data.author);
+    static getData({ id }) {
+        return Post.findById({ id });
     }
 
     static getPost({ id }) {
-        return Post.findById({ id }).populate("author").populate("comments");
+        return Post.findById({ id }) //
+            .populate("author", "name")
+            .populate("comments", "comment author createdAt __v");
     }
 
     static getRank({ filter, page }) {
-        return Post.find({ filter, page })
-            .populate("author")
+        return Post.find({ filter })
+            .populate("author", "name")
             .skip((page - 1) * 10)
             .limit(10);
     }

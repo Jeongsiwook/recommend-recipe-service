@@ -10,6 +10,7 @@ const CommentSchema = new Schema(
         comment: {
             type: String,
             required: true,
+            trim: true,
         },
         author: {
             type: Schema.Types.ObjectId,

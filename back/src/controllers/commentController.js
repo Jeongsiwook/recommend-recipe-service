@@ -1,4 +1,3 @@
-import { userService } from "../services/userService";
 import { commentService } from "../services/commentService";
 
 class commentController {
@@ -22,8 +21,9 @@ class commentController {
             const user_id = req.currentUserId;
             const { post, comment } = req.body;
 
-            const { author } = await commentService.getComment({ id });
-            if (author != user_id) throw new Error("접근 권한이 없습니다.");
+            const data = await commentService.getComment({ id });
+            if (!data) throw new Error("댓글을 찾을 수 없습니다.");
+            if (data.author != user_id) throw new Error("접근 권한이 없습니다.");
 
             const toUpdate = { post, comment };
             const updatedComment = await commentService.updateComment({ id, toUpdate });
@@ -39,8 +39,9 @@ class commentController {
             const { id } = req.params;
             const user_id = req.currentUserId;
 
-            const author = await commentService.getComment({ id }).then((data) => data.author);
-            if (author != user_id) throw new Error("접근 권한이 없습니다.");
+            const data = await commentService.getComment({ id });
+            if (!data) throw new Error("댓글을 찾을 수 없습니다.");
+            if (data.author != user_id) throw new Error("접근 권한이 없습니다.");
 
             await commentService.deleteComment({ id });
 

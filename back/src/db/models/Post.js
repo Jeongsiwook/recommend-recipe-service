@@ -9,6 +9,10 @@ class Post {
         return PostModel.findById(id);
     }
 
+    static findOne(filter) {
+        return PostModel.findOne(filter);
+    }
+
     static find({ filter }) {
         return PostModel.find(filter).sort({ createdAt: -1 });
     }
