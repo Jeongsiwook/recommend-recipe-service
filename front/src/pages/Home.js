@@ -51,7 +51,11 @@ const Home = () => {
   };
 
   const handleSubmit = () => {
-    const formData = { cooking, ingredients };
+    const ingredientsPreprocessing = ingredients
+      .split(',')
+      .map((ingredient) => ingredient.trim());
+
+    const formData = { cooking, ingredientsPreprocessing };
     validateForm(formData);
   };
 
@@ -62,18 +66,18 @@ const Home = () => {
         <FormFieldset>
           <FormLabel
             error={cookingInputStatus === InputStatus.ERROR}
-            htmlFor='cooking'
+            htmlFor="cooking"
           >
             음식명
           </FormLabel>
           <FormInput
             value={cooking}
-            id='cooking'
+            id="cooking"
             onChange={handleCookingChange}
-            type='text'
-            name='cooking'
+            type="text"
+            name="cooking"
             status={cookingInputStatus}
-            placeholder='음식명을 입력해주세요.'
+            placeholder="음식명을 입력해주세요."
           />
 
           <FormError>
@@ -84,18 +88,18 @@ const Home = () => {
         <FormFieldset>
           <FormLabel
             error={ingredientsInputStatus === InputStatus.ERROR}
-            htmlFor='ingredients'
+            htmlFor="ingredients"
           >
             식재료
           </FormLabel>
           <FormInput
-            id='ingredients'
+            id="ingredients"
             value={ingredients}
             onChange={handleIngredientsChange}
-            type='text'
-            name='ingredients'
+            type="text"
+            name="ingredients"
             status={ingredientsInputStatus}
-            placeholder='식재료를 띄어쓰기로 구분해서 입력해주세요.'
+            placeholder="식재료를 콤마(,)로 구분해서 입력해주세요."
           />
 
           <FormError>
@@ -104,7 +108,7 @@ const Home = () => {
         </FormFieldset>
 
         <ButtonContainer>
-          <FormButton onClick={handleSubmit} buttonType='submit' type='button'>
+          <FormButton onClick={handleSubmit} buttonType="submit" type="button">
             레시피 추천받기
           </FormButton>
         </ButtonContainer>
@@ -123,27 +127,16 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-// const MiddleContainer = styled.div`
-//   display: flex;
-//   align-itmes: center;
-//   flex-direction: column;
-//   height: 40rem;
-//   background: red;
-// `;
-// const Cooking = styled.div`
-//   width: 40rem;
-//   height: 10rem;
-//   display: flex;
-//   justify-content: center;
-//   background: blue;
-// `;
-// const Ingredients = styled.div`
-//   width: 40rem;
-//   height: 50rem;
-//   background: yellow;
-// `;
+
 const FormContainer = styled.form`
-  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 40rem;
+  margin: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
 `;
 const FormFieldset = styled.fieldset`
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
@@ -151,6 +144,7 @@ const FormFieldset = styled.fieldset`
   flex-direction: column;
   border: none;
   padding: 12px 0;
+  margin: 1rem;
 
   &:not(:first-of-type) {
     border-bottom: none;
@@ -163,15 +157,19 @@ const textError = css`
 const FormLabel = styled.label`
   display: block;
   padding-bottom: 8px;
-  font-size: 0.8rem;
+  font-size: 2rem;
   ${(props) => props.error && textError}
 `;
 
 const inputInvalid = css`
   border: 2px solid #ff6b6b;
+  width: 50%;
+  height: 1.5rem;
 `;
 const inputValid = css`
   border: 2px solid #51cf66;
+  width: 50%;
+  height: 1.5rem;
 `;
 const FormInput = styled.input`
   display: block;
@@ -192,6 +190,8 @@ const FormError = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
+  justify-content: center;
+  margin: 1rem;
 `;
 
 const FormButton = styled.button`
