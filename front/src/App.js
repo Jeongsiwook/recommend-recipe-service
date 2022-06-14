@@ -6,6 +6,7 @@ import Prolog from './pages/Prolog';
 import Home from './pages/Home';
 import Community from './pages/Community';
 import Result from './pages/Result';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/community" element={<Community />} />
         <Route path="/result" element={<Result />} />
-        <Route path="/*" element={<Prolog />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
   );
