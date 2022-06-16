@@ -10,32 +10,46 @@ const Nav = () => {
     <Container>
       <UlLogo>
         <Li>
-          <NavLink to='/home'>Home</NavLink>
+          <NavLink to="/home">
+            <P>Home</P>
+          </NavLink>
         </Li>
       </UlLogo>
       <Ul>
         <Li>
-          <NavLink to='/ranking'>랭킹</NavLink>
+          <NavLink to="/ranking">
+            <P>랭킹</P>
+          </NavLink>
         </Li>
         <Li>
-          <NavLink to='/community'>커뮤니티</NavLink>
+          <NavLink to="/community">
+            <P>커뮤니티</P>
+          </NavLink>
         </Li>
         {isLogin ? (
           <>
             <Li>
-              <NavLink to='/prolog'>로그아웃</NavLink>
+              <NavLink to="/prolog">
+                <P>로그아웃</P>
+              </NavLink>
             </Li>
             <Li>
-              <NavLink to='/mypage'>마이페이지</NavLink>
+              <NavLink to="/mypage">
+                <P>마이페이지</P>
+              </NavLink>
             </Li>
           </>
         ) : (
           <>
             <Li>
-              <NavLink to='/signin'>로그인</NavLink>
+              <NavLink to="/signin">
+                <P>로그인</P>
+              </NavLink>
             </Li>
             <Li>
-              <NavLink to='/signup'>회원가입</NavLink>
+              <NavLink to="/signup">
+                <P>회원가입</P>
+              </NavLink>
             </Li>
           </>
         )}
@@ -51,7 +65,7 @@ const Container = styled.div`
   box-sizing: border-box;
   justify-content: center;
   width: 100%;
-  background: #d3d3d3;
+  background: white;
 `;
 const UlLogo = styled.ul`
   display: flex;
@@ -69,4 +83,10 @@ const Li = styled.li`
   font-family: 'notoSansKr';
   font-size: 1rem;
   margin: 1rem;
+`;
+const P = styled.p`
+  color: #656565;
+  &:hover {
+    color: black;
+  }
 `;

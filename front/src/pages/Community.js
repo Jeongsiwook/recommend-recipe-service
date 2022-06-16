@@ -67,42 +67,118 @@ const Community = () => {
               .sort((a, b) => Number(b.good) - Number(a.good))
               .map((d) => (
                 <Post>
-                  <p
+                  <div
                     style={{
-                      fontWeight: 'bold',
-                      fontSize: '1.5rem',
-                      margin: '1rem',
+                      border: '0.1rem solid whitesmoke',
+                      borderRadius: '1rem',
                     }}
                   >
-                    {d.cooking}
-                  </p>
-                  <p>👍 {d.good}</p>
-                  <p>{d.ingredients}</p>
-                  <p>{d.recipe}</p>
-                  <p>{d.content}</p>
-                  <p>{d.writer}</p>
-                  <p>{d.date}</p>
+                    <p
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                        margin: '1rem 0 0.3rem 1rem',
+                      }}
+                    >
+                      {d.cooking}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: '1rem',
+                        margin: '0 0 1rem 1rem',
+                        color: 'gray',
+                      }}
+                    >
+                      {d.writer} {'               '} {d.date}
+                    </p>
+                  </div>
+                  <div
+                    style={{
+                      borderBottom: '0.1rem solid whitesmoke',
+                    }}
+                  >
+                    <p>{d.ingredients}</p>
+                    <p>{d.recipe}</p>
+                  </div>
+                  <div
+                    style={{
+                      borderBottom: '0.1rem solid whitesmoke',
+                    }}
+                  >
+                    <p>{d.content}</p>
+                  </div>
+
+                  <BtnContainer>
+                    <button style={{ border: 'none', background: 'white' }}>
+                      <Img alt="좋아요" src="./imgs/heart.png" />
+                    </button>
+                    <button style={{ border: 'none', background: 'white' }}>
+                      <Img alt="댓글" src="./imgs/comment.png" />
+                    </button>
+                    <button style={{ border: 'none', background: 'white' }}>
+                      <Img alt="북마크" src="./imgs/bookmark.png" />
+                    </button>
+                  </BtnContainer>
+                  <p style={{ fontWeight: 'bold' }}>좋아요 {d.good}개</p>
                 </Post>
               ))
           : data
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               .map((d) => (
                 <Post>
-                  <p
+                  <div
                     style={{
-                      fontWeight: 'bold',
-                      fontSize: '1.5rem',
-                      margin: '1rem',
+                      border: '0.1rem solid whitesmoke',
+                      borderRadius: '1rem',
                     }}
                   >
-                    {d.cooking}
-                  </p>
-                  <p>👍 {d.good}</p>
-                  <p>{d.ingredients}</p>
-                  <p>{d.recipe}</p>
-                  <p>{d.content}</p>
-                  <p>{d.writer}</p>
-                  <p>{d.date}</p>
+                    <p
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                        margin: '1rem 0 0.3rem 1rem',
+                      }}
+                    >
+                      {d.cooking}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: '1rem',
+                        margin: '0 0 1rem 1rem',
+                        color: 'gray',
+                      }}
+                    >
+                      {d.writer} {'               '} {d.date}
+                    </p>
+                  </div>
+                  <div
+                    style={{
+                      borderBottom: '0.1rem solid whitesmoke',
+                    }}
+                  >
+                    <p>{d.ingredients}</p>
+                    <p>{d.recipe}</p>
+                  </div>
+                  <div
+                    style={{
+                      borderBottom: '0.1rem solid whitesmoke',
+                    }}
+                  >
+                    <p>{d.content}</p>
+                  </div>
+
+                  <BtnContainer>
+                    <button style={{ border: 'none', background: 'white' }}>
+                      <Img alt="좋아요" src="./imgs/heart.png" />
+                    </button>
+                    <button style={{ border: 'none', background: 'white' }}>
+                      <Img alt="댓글" src="./imgs/comment.png" />
+                    </button>
+                    <button style={{ border: 'none', background: 'white' }}>
+                      <Img alt="북마크" src="./imgs/bookmark.png" />
+                    </button>
+                  </BtnContainer>
+                  <p style={{ fontWeight: 'bold' }}>좋아요 {d.good}개</p>
                 </Post>
               ))}
       </PostDiv>
@@ -126,6 +202,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  background: whitesmoke;
+  z-index: -1;
 `;
 const Div1 = styled.div`
   display: flex;
@@ -150,11 +228,11 @@ const PostDiv = styled.div`
 const Post = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin: 1rem;
-
-  & p:not(:first-of-type) {
+  border: none;
+  border-radius: 1rem;
+  background: white;
+  margin: 0.5rem;
+  & p {
     font-size: 1rem;
     margin: 1rem;
   }
@@ -177,10 +255,19 @@ const Selector = styled.select`
   width: 5rem;
   height: 2rem;
 `;
+const BtnContainer = styled.div`
+  display: flex;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+`;
 const Btn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 5rem;
   height: 2rem;
+`;
+const Img = styled.img`
+  width: 2.5rem;
+  height: 2.5rem;
+  background: none;
 `;
