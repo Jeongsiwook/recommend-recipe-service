@@ -77,10 +77,19 @@ const Home = () => {
       </FormContainer>
 
       <InfoContainer>
-        <div>
-          <p>이왜맛?</p>
-        </div>
-        <Info></Info>
+        <Info>
+          <img style={{ width: '9rem' }} src="./imgs/logo.png" alt="로고"></img>
+        </Info>
+        <Info>
+          <p>먹고 싶은 음식의 이름을 입력하세요!</p>
+          <p>가지고 계신 식재료를 모두 입력하세요!</p>
+          <p>레시피 추천받기 버튼을 눌러 결과를 확인하세요!</p>
+        </Info>
+        <Info>
+          <p>된장찌개가 먹고 싶은데 가진 재료가 이것뿐이야!</p>
+          <p>음식명 : 된장찌개</p>
+          <p>식재료 : 된장, 간장, 상추, 토마토</p>
+        </Info>
       </InfoContainer>
     </Container>
   );
@@ -162,27 +171,22 @@ const FormButton = styled.button`
 `;
 const InfoContainer = styled.div`
   width: 80%;
-  height: 150px;
+  margin: 1rem;
   background: #fff0ba;
   border-radius: 1rem;
+  display: flex;
 `;
-const Info = styled.div``;
+const Info = styled.div`
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  & p {
+    font-size: 0.8rem;
+    margin: 0.5rem;
+  }
+`;
 
-// const floating = keyframes`
-//   0 {
-//     transform: translateY(0);
-//   }
-//   50% {
-//     transform: translateY(-15px);
-//   }
-//   100% {
-//     transform: translateY(0);
-//   }
-// `;
-// const floatingImg = css`
-//   width: 5rem;
-//   animation: ${floating} 2s ease infinite;
-// `;
 const FloatingContainer1 = styled.div`
   position: absolute;
   bottom: -30px;

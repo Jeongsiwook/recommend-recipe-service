@@ -8,10 +8,14 @@ const Nav = () => {
 
   return (
     <Container>
-      <UlLogo>
+      <UlLogo style={{ display: 'flex', alignItems: 'center' }}>
         <Li>
           <NavLink to="/home">
-            <P>Home</P>
+            <img
+              style={{ width: '9rem' }}
+              src="./imgs/logo.png"
+              alt="로고"
+            ></img>
           </NavLink>
         </Li>
       </UlLogo>
