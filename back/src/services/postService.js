@@ -1,18 +1,14 @@
-import { Post } from "../db";
+import { Post, Comment } from "../db";
 
 class postService {
     static addPost({ newPost }) {
         return Post.create({ newPost });
     }
 
-    static getData({ id }) {
-        return Post.findById({ id });
-    }
-
-    static getPost({ id }) {
-        return Post.findById({ id }) //
-            .populate("author", "name")
-            .populate("comments", "comment author createdAt __v");
+    static async getPost({ id }) {
+        const post = await Post.findById({ id }).lean();
+        post.comments = await Comment.find({ post: id }).lean();
+        return post;
     }
 
     static getRank({ filter, page }) {
@@ -22,11 +18,11 @@ class postService {
             .limit(10);
     }
 
-    static async updatePost({ id, toUpdate }) {
+    static updatePost({ id, toUpdate }) {
         return Post.updateById({ id, toUpdate });
     }
 
-    static async deletePost({ id }) {
+    static deletePost({ id }) {
         return Post.deleteById({ id });
     }
 }

@@ -5,8 +5,8 @@ class Comment {
         return CommentModel.create(newComment);
     }
 
-    static findById({ id }) {
-        return CommentModel.findById(id);
+    static find(filter) {
+        return CommentModel.find(filter);
     }
 
     static updateById({ id, toUpdate }) {
