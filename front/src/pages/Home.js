@@ -1,22 +1,10 @@
 // 홈
 import React, { useState } from 'react';
 import Nav from '../components/Nav';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-// const floatingObject = (selector, delay, size) => {
-//   gsap.to(
-//     selector, // 선택자
-//     random(1.5, 2.5), // 애니메이션 동작 시간
-//     {
-//       // 옵션
-//       y: size,
-//       repeat: -1,
-//       yoyo: true,
-//       ease: Power1.easeInout,
-//       delay: random(0, delay),
-//     }
-//   );
-// };
+import { keyframes, css } from '@emotion/react';
+import { gsap } from 'gsap';
 
 const Home = () => {
   const [cooking, setCooking] = useState('');
@@ -41,7 +29,22 @@ const Home = () => {
   return (
     <Container>
       <Nav />
+
       <FormContainer>
+        <FloatingContainer1>
+          <img src="./imgs/tomato.png" alt="토마토" style={{ width: '5rem' }} />
+        </FloatingContainer1>
+        <FloatingContainer2>
+          <img src="./imgs/onion.png" alt="파" style={{ width: '10rem' }} />
+        </FloatingContainer2>
+        <FloatingContainer3>
+          <img
+            src="./imgs/banana.png"
+            alt="바나나"
+            style={{ width: '10rem' }}
+          />
+        </FloatingContainer3>
+
         <FormFieldset>
           <FormLabel htmlFor="cooking">음식명</FormLabel>
           <FormInput
@@ -96,6 +99,7 @@ const Container = styled.div`
 
 const FormContainer = styled.form`
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   width: 50%;
@@ -151,6 +155,7 @@ const FormButton = styled.button`
   width: 11rem;
   height: 3rem;
   color: white;
+  transition: 0.4s;
   &:hover {
     background: #ff8339;
   }
@@ -162,3 +167,46 @@ const InfoContainer = styled.div`
   border-radius: 1rem;
 `;
 const Info = styled.div``;
+
+// const floating = keyframes`
+//   0 {
+//     transform: translateY(0);
+//   }
+//   50% {
+//     transform: translateY(-15px);
+//   }
+//   100% {
+//     transform: translateY(0);
+//   }
+// `;
+// const floatingImg = css`
+//   width: 5rem;
+//   animation: ${floating} 2s ease infinite;
+// `;
+const FloatingContainer1 = styled.div`
+  position: absolute;
+  bottom: -30px;
+  right: -100px;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const FloatingContainer2 = styled.div`
+  position: absolute;
+  top: -7rem;
+  left: 1rem;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const FloatingContainer3 = styled.div`
+  position: absolute;
+  top: 10rem;
+  right: -10rem;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
