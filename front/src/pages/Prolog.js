@@ -15,12 +15,12 @@ const Prolog = () => {
           <p>냉장고를 부탁해!를 소개합니다.</p>
         </ContentP>
         <ContentImg>
-          <Img alt='냉장고를 부탁해 사진' src='./imgs/sampleImage.jpg' />
+          <Img alt="냉장고를 부탁해 사진" src="./imgs/sampleImage.jpg" />
         </ContentImg>
       </MainIntroduction>
       <BookmarkIntroduction>
         <ContentImg>
-          <Img alt='북마크 사진' src='./imgs/sampleImage.jpg' />
+          <Img alt="북마크 사진" src="./imgs/sampleImage.jpg" />
         </ContentImg>
         <ContentP>
           <p>북마크 기능</p>
@@ -33,12 +33,12 @@ const Prolog = () => {
           <p>커뮤니티 기능에 대한 자세한 설명</p>
         </ContentP>
         <ContentImg>
-          <Img alt='커뮤니티 사진' src='./imgs/sampleImage.jpg' />
+          <Img alt="커뮤니티 사진" src="./imgs/sampleImage.jpg" />
         </ContentImg>
       </CommunityIntroduction>
       <RankingIntroduction>
         <ContentImg>
-          <Img alt='랭킹 사진' src='./imgs/sampleImage.jpg' />
+          <Img alt="랭킹 사진" src="./imgs/sampleImage.jpg" />
         </ContentImg>
         <ContentP>
           <p>랭킹 기능</p>
@@ -72,7 +72,7 @@ const MainIntroduction = styled.div`
   display: flex;
   width: 80%;
   margin-bottom: ${marginValue};
-  // background: blue;
+  position: relative;
 `;
 const BookmarkIntroduction = styled.div`
   display: flex;
@@ -94,14 +94,23 @@ const RankingIntroduction = styled.div`
 `;
 const ContentP = styled.div`
   width: 50%;
+  position: absolute;
+  transition-property: all;
+  transition-duration: 2s;
+  transition-delay: 1s;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transform: translate(10%, 0);
 `;
 const ContentImg = styled.div`
   width: 50%;
   display: flex;
   justify-content: center;
+  transition-property: all;
+  transition-duration: 1s;
+  transition-delay: 0.5s;
+  transform: translate(90%, 0);
 `;
 const Img = styled.img`
   width: 500px;
