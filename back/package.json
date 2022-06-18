@@ -11,12 +11,8 @@
     "license": "MIT",
     "dependencies": {
         "@sindresorhus/is": "^4.6.0",
-<<<<<<< HEAD
         "aws-sdk": "^2.1152.0",
         "axios": "^0.27.2",
-=======
-        "aws-sdk": "^2.1156.0",
->>>>>>> dee2d34d44a4e6f7c3f0b3a406bf5e3f6a8fc9c2
         "babel-node": "^0.0.1-security",
         "bcrypt": "^5.0.1",
         "cookie-parser": "^1.4.6",
