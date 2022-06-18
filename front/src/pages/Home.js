@@ -3,9 +3,6 @@ import React, { useState } from 'react';
 import Nav from '../components/Nav';
 import styled from 'styled-components';
 
-import { keyframes, css } from '@emotion/react';
-import { gsap } from 'gsap';
-
 const Home = () => {
   const [cooking, setCooking] = useState('');
   const [ingredients, setIngredients] = useState([]);
