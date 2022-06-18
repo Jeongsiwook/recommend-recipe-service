@@ -1,3 +1,14 @@
+import axios from "axios";
+
+async function recipeAiModel({ title, ingredients }) {
+    const flask_base_URL = "http://localhost:5000";
+    const response = await axios.post(`${flask_base_URL}/recipe`, { title, ingredients });
+    return response.data;
+}
+
+export { recipeAiModel };
+
+/*
 require("onnxjs");
 // Use package 'onnxjs-node' to load ONNXRuntime backend.
 require("onnxjs-node");
@@ -29,7 +40,7 @@ async function recipeAiModel(title, ingredients) {
 }
 
 export { recipeAiModel };
-
+*/
 //다른 ai 모델 예시 적용, 잘 돌아감
 
 /*
