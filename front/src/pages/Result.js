@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import Nav from '../components/Nav';
+import { ResultContext } from '../App';
 
-import YouTube from 'react-youtube';
+import * as Api from '../Api';
 
 const Result = () => {
-  const [cooking, setCooking] = useState('');
-  const [ingredients, setIngredients] = useState('');
   const [bookMarkIcon, setbookMarkIcon] = useState(false);
+
+  const {
+    resultCooking,
+    setResultCooking,
+    resultIngredients,
+    setResultIngredients,
+    resultRecipe,
+    setResultRecipe,
+  } = useContext(ResultContext);
 
   const handleBtnClick = () => {
     setbookMarkIcon(!bookMarkIcon);
@@ -20,11 +28,21 @@ const Result = () => {
       // ToDo: 북마크에서 해제
     }
   };
-  const handleSubmit = () => {};
 
-  useEffect(() => {
-    //
-  });
+  const handleSubmit = async () => {
+    try {
+      const res = await Api.post('recipes', {
+        title: resultCooking,
+        ingredients: resultIngredients,
+      });
+
+      setResultCooking(res.title);
+      setResultIngredients(res.ingredients);
+      setResultRecipe(res.recipe);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Container>
@@ -45,6 +63,7 @@ const Result = () => {
               }}
             >
               부대찌개
+              {/* {resultCooking} */}
             </p>
           </div>
           <div
@@ -54,6 +73,7 @@ const Result = () => {
           >
             <p style={{ fontSize: '1rem', margin: '1rem' }}>
               햄, 소시지, 두부, 김치, 대파, 양파, 고추, 치즈
+              {/* {resultIngredients} */}
             </p>
             <p style={{ fontSize: '1rem', margin: '1rem' }}>
               마트 등에서 파는 부대찌개용 양념을 하나 구입한다(한 봉당
@@ -68,10 +88,14 @@ const Result = () => {
               소세지,햄에서 더 넣고, 설탕과 토마토를 케첩으로 대체하고 콩을
               된장으로 대체하는 것이다. 이러면 베이크드 빈즈가 들어간 것과
               똑같은 조합이 되므로 우리가 아는 부대찌개 맛이 거의 비슷하게 난다.
+              {/* {resultRecipe} */}
             </p>
           </div>
           <BtnContainer>
-            <button style={{ border: 'none', background: 'white' }}>
+            <button
+              onClick={handleBtnClick}
+              style={{ border: 'none', background: 'white' }}
+            >
               <Img alt="북마크" src="./imgs/bookmark.png" />
             </button>
           </BtnContainer>

@@ -1,11 +1,18 @@
 // 홈
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Nav from '../components/Nav';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { ResultContext } from '../App';
+
+import * as Api from '../Api';
 
 const Home = () => {
   const [cooking, setCooking] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const { setResultCooking, setResultIngredients, setResultRecipe } =
+    useContext(ResultContext);
+  const navigate = useNavigate();
 
   const handleCookingChange = (e) => {
     setCooking(e.target.value);
@@ -15,12 +22,24 @@ const Home = () => {
     setIngredients(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const ingredientsPreprocessing = ingredients
       .split(',')
       .map((ingredient) => ingredient.trim());
+    try {
+      const res = await Api.post('recipes', {
+        title: cooking,
+        ingredients: ingredientsPreprocessing,
+      });
 
-    const formData = { cooking, ingredientsPreprocessing };
+      setResultCooking(res.title);
+      setResultIngredients(res.ingredients);
+      setResultRecipe(res.recipe);
+
+      navigate('/result');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
