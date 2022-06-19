@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  color: black;
+}
+.button {
+  border: 0;
+  outline: 0;
+}
+
+@font-face {
+  font-family: 'NotoSansKR';
+  src: url('../public/fonts/NotoSansKR-Regular.otf');
+}
