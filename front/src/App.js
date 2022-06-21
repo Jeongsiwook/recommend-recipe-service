@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Community from './pages/Community';
 import Result from './pages/Result';
 import NotFound from './pages/NotFound';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 export const ResultContext = createContext();
 
@@ -32,6 +34,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/community" element={<Community />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/SignIn" element={<SignIn />} />
+          <Route path="/SignUp" element={<SignUp />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
