@@ -7,7 +7,7 @@ import * as Api from '../Api';
 
 const Result = () => {
   const [bookMarkIcon, setbookMarkIcon] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const {
     resultCooking,
     setResultCooking,
@@ -36,9 +36,9 @@ const Result = () => {
         ingredients: resultIngredients,
       });
 
-      setResultCooking(res.title);
-      setResultIngredients(res.ingredients);
-      setResultRecipe(res.recipe);
+      setResultCooking(res.data.title);
+      setResultIngredients(res.data.ingredients);
+      setResultRecipe(res.data.recipe);
     } catch (e) {
       console.log(e);
     }
@@ -48,7 +48,7 @@ const Result = () => {
     <Container>
       <Nav />
       <Div>
-        <Video muted autoplay loop>
+        <Video muted autoPlay loop>
           <Source src="./video/result.mp4" alt="요리" type="video/mp4" />
         </Video>
         <Content>
@@ -62,8 +62,7 @@ const Result = () => {
                 margin: '1rem',
               }}
             >
-              부대찌개
-              {/* {resultCooking} */}
+              {resultCooking}
             </p>
           </div>
           <div
@@ -72,24 +71,9 @@ const Result = () => {
             }}
           >
             <p style={{ fontSize: '1rem', margin: '1rem' }}>
-              햄, 소시지, 두부, 김치, 대파, 양파, 고추, 치즈
-              {/* {resultIngredients} */}
+              {resultIngredients}
             </p>
-            <p style={{ fontSize: '1rem', margin: '1rem' }}>
-              마트 등에서 파는 부대찌개용 양념을 하나 구입한다(한 봉당
-              천원~2천원대 가격에 구할 수 있다). 양념봉지 뒷면에 있는 물의
-              양만큼 냄비에 물을 넣고 양념을 넣고 끓인다. 햄과 소시지, 두부,
-              김치를 넉넉히 깔고 대파와 채썬 양파, 매운 고추(선택사항)를 적당히
-              얹어놓고 육수를 부어 끓인다. 다 끓어갈 즈음에서 슬라이스 치즈
-              1/2장을 국물에 녹인다(선택사항). 베이크드 빈즈가 있다면 넣으면
-              좋으나, 보통 구비해두질 않으니 대신 토마토 케첩을 1인분당 반
-              스푼씩 넣고 된장을 약간 넣는다. 베이크드 빈즈 = 설탕+토마토+동물의
-              지방+향신료+강낭콩 이기 때문에, 동물의 지방과 향신료는
-              소세지,햄에서 더 넣고, 설탕과 토마토를 케첩으로 대체하고 콩을
-              된장으로 대체하는 것이다. 이러면 베이크드 빈즈가 들어간 것과
-              똑같은 조합이 되므로 우리가 아는 부대찌개 맛이 거의 비슷하게 난다.
-              {/* {resultRecipe} */}
-            </p>
+            <p style={{ fontSize: '1rem', margin: '1rem' }}>{resultRecipe}</p>
           </div>
           <BtnContainer>
             <button
