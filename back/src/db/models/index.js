@@ -8,7 +8,7 @@ const db = {};
 
 const sequelize = new Sequelize(
     config.database, //
-    config.user,
+    config.username,
     config.password,
     config,
 );

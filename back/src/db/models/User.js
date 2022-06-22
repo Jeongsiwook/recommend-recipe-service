@@ -1,30 +1,29 @@
-import { UserModel } from "../schemas/user";
+module.exports = (sequelize, DataTypes) => {
+    const Users = sequelize.define(
+        "Users",
+        {
+            id: {
+                type: DataTypes.UUID,
+                defaultValue: DataTypes.UUIDV4,
+                primaryKey: true,
+                comment: "고유번호 UUID",
+            },
+            email: DataTypes.STRING(100),
+            name: DataTypes.STRING(100),
+            password: DataTypes.STRING(60),
+            __v: {
+                type: DataTypes.INTEGER(11),
+                comment: "전화번호",
+            },
+        },
+        {
+            charset: "utf8", // 한국어 설정
+            collate: "utf8_general_ci", // 한국어 설정
+            tableName: "Users", // 테이블 이름
+            timestamps: true, // createAt & updateAt 활성화
+            paranoid: true, // timestamps 가 활성화 되어야 사용 가능 > deleteAt 옵션 on
+        },
+    );
 
-class User {
-    static create({ newUser }) {
-        return UserModel.create(newUser);
-    }
-
-    static findByEmail({ email }) {
-        return UserModel.findOne({ email });
-    }
-
-    static findById({ userId }) {
-        return UserModel.findOne({ id: userId }).populate("recipes");
-    }
-
-    static async update({ userId, newValues }) {
-        const filter = { id: userId };
-        const update = { $set: newValues };
-
-        return UserModel.findOneAndUpdate(filter, update, { new: true });
-    }
-
-    static async deleteById({ userId }) {
-        const deleteResult = await UserModel.deleteOne({ id: userId });
-        const isDataDeleted = deleteResult.deletedCount === 1;
-        return isDataDeleted;
-    }
-}
-
-export { User };
+    return Users;
+};
