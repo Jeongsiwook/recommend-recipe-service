@@ -1,115 +1,69 @@
-import { User, Recipe } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
-import bcrypt from "bcrypt";
+import { User, Recipe } from "../db";
 import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 class userService {
     static async addUser({ name, email, password }) {
-        // 이메일 중복 확인
         const user = await User.findByEmail({ email });
         if (user) {
-            const errorMessage = "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.";
-            return { errorMessage };
+            return { errorMessage: "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요." };
         }
 
-        // 비밀번호 해쉬화
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        // id 는 유니크 값 부여
-        const id = uuidv4();
         const newUser = {
-            id,
+            id: uuidv4(),
             name,
             email,
             password: hashedPassword,
         };
 
-        // db에 저장
-        const createdNewUser = await User.create({ newUser });
-        createdNewUser.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
-
-        return createdNewUser;
+        return User.create({ newUser });
     }
 
     static async getUser({ email, password }) {
-        // 이메일 db에 존재 여부 확인
         const user = await User.findByEmail({ email });
         if (!user) {
-            const errorMessage = "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-            return { errorMessage };
+            return { errorMessage: "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요." };
         }
 
-        // 비밀번호 일치 여부 확인
-        const correctPasswordHash = user.password;
-        const isPasswordCorrect = await bcrypt.compare(password, correctPasswordHash);
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
-            const errorMessage = "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.";
-            return { errorMessage };
+            return { errorMessage: "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요." };
         }
 
-        // 로그인 성공 -> JWT 웹 토큰 생성
         const secretKey = process.env.JWT_SECRET_KEY;
-
         if (!secretKey) {
-            const errorMessage = "JWT_SECRET_KEY가 설정되지 않았습니다.";
-            return { errorMessage };
+            return { errorMessage: "JWT_SECRET_KEY가 설정되지 않았습니다." };
         }
 
-        //jwt default는 24시간 -> 1시간으로 변경
         const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
-
-        // 반환할 loginuser 객체를 위한 변수 설정
         const id = user.id;
         const name = user.name;
         const description = user.description;
 
-        const loginUser = {
-            token,
-            id,
-            email,
-            name,
-            description,
-            errorMessage: null,
-        };
-
-        return loginUser;
+        return { token, id, email, name, description };
     }
 
     static async setUser({ userId, toUpdate }) {
-        // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
         let user = await User.findById({ userId });
-
-        // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!user) {
-            const errorMessage = "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-            return { errorMessage };
+            return { errorMessage: "가입 내역이 없습니다. 다시 한 번 확인해 주세요." };
         }
 
-        // 업데이트 대상에 name이 있다면, 즉 name 값이 null 이 아니라면 업데이트 진행
-        if (!toUpdate.name) {
-            toUpdate.name = user.name;
-        }
+        const { name, description } = toUpdate;
+        if (!name) name = user.name;
+        if (!description) description = user.description;
 
-        if (!toUpdate.description) {
-            toUpdate.description = user.description;
-        }
-        const newValues = {
-            name: toUpdate.name,
-            description: toUpdate.description,
-        };
+        const newValues = { name, description };
 
-        user = await User.update({ userId, newValues });
-
-        return user;
+        return User.update({ userId, newValues });
     }
 
     static async getUserInfo({ userId }) {
         const user = await User.findById({ userId });
-
-        // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!user) {
-            const errorMessage = "해당 사용자는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-            return { errorMessage };
+            return { errorMessage: "해당 사용자는 가입 내역이 없습니다. 다시 한 번 확인해 주세요." };
         }
 
         return user;
@@ -118,29 +72,19 @@ class userService {
     static async deleteUser({ userId }) {
         const user = await User.findById({ userId });
         if (!user) {
-            const errorMessage = "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-            return { errorMessage };
+            return { errorMessage: "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요." };
         }
 
-        const isDataDeleted = await User.deleteById({ userId });
-
-        return { status: "ok" };
+        return User.deleteById({ userId });
     }
 
     static async addRecipe({ userId, title, ingredients, content }) {
-        const newRecipe = {
-            title,
-            ingredients,
-            content,
-        };
-        const storedRecipe = await Recipe.create({ userId, newRecipe });
-        return storedRecipe;
+        const newRecipe = { title, ingredients, content };
+        return Recipe.create({ userId, newRecipe });
     }
 
     static async deleteRecipe({ recipeId }) {
-        const isDataDeleted = await Recipe.deleteById({ recipeId });
-
-        return { status: "ok" };
+        return Recipe.deleteById({ recipeId });
     }
 }
 
