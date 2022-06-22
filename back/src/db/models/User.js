@@ -1,28 +1,23 @@
 import { UserModel } from "../schemas/user";
 
 class User {
-    static async create({ newUser }) {
-        const createdNewUser = await UserModel.create(newUser);
-        return createdNewUser;
+    static create({ newUser }) {
+        return UserModel.create(newUser);
     }
 
-    static async findByEmail({ email }) {
-        const user = await UserModel.findOne({ email });
-        return user;
+    static findByEmail({ email }) {
+        return UserModel.findOne({ email });
     }
 
-    static async findById({ userId }) {
-        const user = await UserModel.findOne({ id: userId }).populate("recipes");
-        return user;
+    static findById({ userId }) {
+        return UserModel.findOne({ id: userId }).populate("recipes");
     }
 
     static async update({ userId, newValues }) {
         const filter = { id: userId };
         const update = { $set: newValues };
-        const option = { returnOriginal: false };
 
-        const updatedUser = await UserModel.findOneAndUpdate(filter, update, option);
-        return updatedUser;
+        return UserModel.findOneAndUpdate(filter, update, { new: true });
     }
 
     static async deleteById({ userId }) {

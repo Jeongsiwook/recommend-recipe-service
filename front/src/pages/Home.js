@@ -31,11 +31,31 @@ const Home = () => {
     setIngredients(e.target.value);
   };
 
+<<<<<<< HEAD
   const validateCooking = (cooking) => {
     if (cooking.length < 1 || cooking.length > 10) {
       setCookingError('이름은 1글자 이상, 10글자 이하여야 합니다.');
       setCookingInputStatus(InputStatus.ERROR);
       return;
+=======
+  const handleSubmit = async () => {
+    const ingredientsPreprocessing = ingredients
+      .split(',')
+      .map((ingredient) => ingredient.trim());
+    try {
+      const res = await Api.post('recipes', {
+        title: cooking,
+        ingredients: ingredientsPreprocessing,
+      });
+
+      setResultCooking(res.data.title);
+      setResultIngredients(res.data.ingredients);
+      setResultRecipe(res.recipe);
+
+      navigate('/result');
+    } catch (e) {
+      console.log(e);
+>>>>>>> master2
     }
 
     setCookingInputStatus(InputStatus.SUCCESS);
