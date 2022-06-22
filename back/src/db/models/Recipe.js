@@ -4,14 +4,12 @@ import { UserModel } from "../schemas/user";
 class Recipe {
     static async create({ userId, newRecipe }) {
         const storedNewRecipe = await RecipeModel.create(newRecipe);
+
         await UserModel.findOneAndUpdate(
-            { id: userId },
-            {
-                $push: {
-                    recipes: storedNewRecipe,
-                },
-            },
+            { id: userId }, //
+            { $push: { recipes: storedNewRecipe } },
         );
+
         return storedNewRecipe;
     }
 

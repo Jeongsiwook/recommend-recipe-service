@@ -7,27 +7,24 @@ const recipeRouter = Router();
 recipeRouter.post("/recipes", async (req, res, next) => {
     try {
         /*
-         #swagger.tags = ['Recipes'] 
-         #swagger.summary = 'ai 모델 기반 레시피 생성' 
-         #swagger.description = 'input 바탕으로 레시피를 생성한다.' 
+         #swagger.tags = ['Recipes']
+         #swagger.summary = 'ai 모델 기반 레시피 생성'
+         #swagger.description = 'input 바탕으로 레시피를 생성한다.'
         */
+        const { title, ingredients } = req.body;
+
         if (is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
         }
-        // input 예시 : '시금치 비빔밥', ['간장', '밥', '계란', '시금치']
-        const title = req.body.title;
-        const ingredients = req.body.ingredients;
 
-        const newRecipe = await recipeService.createRecipe({
-            title,
-            ingredients,
-        });
+        const newRecipe = { title, ingredients };
 
-        // if (newRecipe.errorMessage) {
-        //   throw new Error(newUser.errorMessage);
-        // }
+        const createdRecipe = await recipeService.createRecipe(newRecipe);
+        if (createdRecipe.errorMessage) {
+            throw new Error(createdRecipe.errorMessage);
+        }
 
-        res.status(201).json(newRecipe);
+        return res.status(201).json(createdRecipe);
     } catch (error) {
         next(error);
     }
