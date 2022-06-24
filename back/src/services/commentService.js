@@ -5,8 +5,11 @@ class commentService {
         return Comment.create({ newComment });
     }
 
-    static getComment({ id }) {
-        return Comment.findById({ id });
+    static getComment({ post, page }) {
+        return Comment.find({ post })
+            .populate("author", "name")
+            .skip((page - 1) * 10)
+            .limit(10);
     }
 
     static updateComment({ id, toUpdate }) {

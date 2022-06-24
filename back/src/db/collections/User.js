@@ -6,11 +6,11 @@ class User {
     }
 
     static findByEmail({ email }) {
-        return UserModel.findOne({ email });
+        return UserModel.findOne({ email }).lean();
     }
 
     static findById({ userId }) {
-        return UserModel.findOne({ id: userId }).populate("recipes");
+        return UserModel.findOne({ id: userId }).populate("recipes").lean();
     }
 
     static async update({ userId, newValues }) {

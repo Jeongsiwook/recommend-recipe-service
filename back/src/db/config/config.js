@@ -1,5 +1,4 @@
 const local = {
-    // local에서 테스트 할 때 사용
     username: process.env.SQL_USERNAME,
     password: process.env.SQL_PASSWORD,
     database: "database_development",

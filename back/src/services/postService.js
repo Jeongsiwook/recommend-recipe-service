@@ -6,8 +6,8 @@ class postService {
     }
 
     static async getPost({ id }) {
-        const post = await Post.findById({ id }).lean();
-        post.comments = await Comment.find({ post: id }).lean();
+        const post = await Post.findById({ id });
+        post.comments = await Comment.find({ post: id });
         return post;
     }
 

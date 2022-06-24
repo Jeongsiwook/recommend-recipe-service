@@ -6,6 +6,8 @@ const commentRouter = Router();
 
 commentRouter.post("/posts/comments", loginRequired, commentController.addComment);
 
+commentRouter.get("/posts/comments/:post", commentController.getComment);
+
 commentRouter.put("/posts/comments/:id", loginRequired, commentController.updateComment);
 
 commentRouter.delete("/posts/comments/:id", loginRequired, commentController.deleteComment);

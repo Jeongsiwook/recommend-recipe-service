@@ -15,6 +15,19 @@ class commentController {
         }
     }
 
+    static async getComment(req, res, next) {
+        try {
+            const { page } = req.query;
+            const { post } = req.params;
+
+            const comment = await commentService.getComment({ post, page });
+
+            return res.status(200).json(comment);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     static async updateComment(req, res, next) {
         try {
             const { id } = req.params;

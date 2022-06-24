@@ -6,7 +6,7 @@ class Comment {
     }
 
     static find(filter) {
-        return CommentModel.find(filter);
+        return CommentModel.find(filter).lean();
     }
 
     static updateById({ id, toUpdate }) {
