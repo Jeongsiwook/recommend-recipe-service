@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Logo from '../components/Logo';
 import { useNavigate } from 'react-router-dom';
 import * as Api from '../Api';
 
@@ -12,7 +13,6 @@ const SignUp = () => {
   const [rePw, setRePw] = useState('');
   const [name, setName] = useState('');
 
-  const handleLogoClick = () => navigate('/home');
   const handleChange = (e) => {
     switch (e.target.name) {
       case 'id':
@@ -38,6 +38,7 @@ const SignUp = () => {
         email: id,
         password: pw,
       });
+      navigate('/signup');
     } catch (e) {
       alert('이미 존재하거나 사용할 수 없는 ID 입니다.');
     }
@@ -45,13 +46,7 @@ const SignUp = () => {
 
   return (
     <Container>
-      <LogoContainer>
-        <LogoImg
-          onClick={handleLogoClick}
-          src="./imgs/logo.png"
-          alt="logo"
-        ></LogoImg>
-      </LogoContainer>
+      <Logo />
       <FormContainer>
         <form>
           <Fieldset>
@@ -112,22 +107,12 @@ export default SignUp;
 
 const Container = styled.div`
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   background: #f5f6f7;
-`;
-const LogoContainer = styled.div`
-  width: 80%;
-  margin: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const LogoImg = styled.img`
-  width: 20rem;
-  cursor: pointer;
 `;
 const FormContainer = styled.div`
   width: 80%;
