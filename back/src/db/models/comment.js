@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
-        "comment",
+        "Comment",
         {
             id: {
                 type: DataTypes.UUID,
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             charset: "utf8",
             collate: "utf8_general_ci",
-            tableName: "comment",
+            tableName: "Comment",
             timestamps: true,
         },
     );

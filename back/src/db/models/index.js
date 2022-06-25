@@ -13,17 +13,29 @@ const sequelize = new Sequelize(
     config,
 );
 
-const User = require("./user")(sequelize, Sequelize.DataTypes);
-const Post = require("./post")(sequelize, Sequelize.DataTypes);
-const Recipe = require("./board")(sequelize, Sequelize.DataTypes);
-const Comment = require("./comment")(sequelize, Sequelize.DataTypes);
+const user = require("./user")(sequelize, Sequelize.DataTypes);
+const post = require("./post")(sequelize, Sequelize.DataTypes);
+const recipe = require("./board")(sequelize, Sequelize.DataTypes);
+const comment = require("./comment")(sequelize, Sequelize.DataTypes);
 
-db["User"] = User;
-db["Post"] = Post;
-db["Recipe"] = Recipe;
-db["Comment"] = Comment;
+db["User"] = user;
+db["Post"] = post;
+db["Recipe"] = recipe;
+db["Comment"] = comment;
+
+db.user.sync();
+db.post.sync();
+db.recipe.sync();
+db.comment.sync();
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+} catch (error) {
+    throw new Error("Unable to connect to the database:", error);
+}
 
 module.exports = db;

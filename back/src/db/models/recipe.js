@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
-        "recipe",
+        "Recipe",
         {
             id: {
                 type: DataTypes.UUID,
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             charset: "utf8",
             collate: "utf8_general_ci",
-            tableName: "recipe",
+            tableName: "Recipe",
             timestamps: true,
         },
     );

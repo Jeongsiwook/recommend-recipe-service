@@ -4,7 +4,7 @@
  * @swagger
  * components:
  *   schemas:
- *     post:
+ *     Post:
  *       type: object
  *       required:
  *         - title
@@ -30,7 +30,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
-        "post",
+        "Post",
         {
             id: {
                 type: DataTypes.UUID,
@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             charset: "utf8",
             collate: "utf8_general_ci",
-            tableName: "post",
+            tableName: "Post",
             timestamps: true,
         },
     );

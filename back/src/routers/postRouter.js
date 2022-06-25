@@ -39,7 +39,7 @@ const postRouter = Router();
  *           content:
  *             application/json:
  *               schema:
- *                 $ref: '#/components/schemas/post'
+ *                 $ref: '#/components/schemas/Post'
  */
 postRouter.post("/posts", loginRequired, postController.addPost);
 
