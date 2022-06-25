@@ -1,10 +1,10 @@
 "use strict";
 
-import User from "./user";
-import Post from "./post";
-import Recipe from "./recipe";
-import Comment from "./comment";
 import Sequelize from "sequelize";
+import User from "./tables/user";
+import Post from "./tables/post";
+import Recipe from "./tables/recipe";
+import Comment from "./tables/comment";
 import { local, rds } from "../config/config";
 
 const config = local;
@@ -27,10 +27,7 @@ db["Post"] = post;
 db["Recipe"] = recipe;
 db["Comment"] = comment;
 
-db.User.sync();
-db.Post.sync();
-db.Recipe.sync();
-db.Comment.sync();
+sequelize.sync();
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
