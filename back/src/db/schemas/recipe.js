@@ -4,6 +4,7 @@ const RecipeSchema = new Schema(
     {
         title: {
             type: String,
+            trim: true,
             required: true,
         },
         ingredients: {
@@ -12,6 +13,7 @@ const RecipeSchema = new Schema(
         },
         content: {
             type: String,
+            trim: true,
             required: true,
         },
     },
