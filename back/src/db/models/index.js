@@ -1,5 +1,9 @@
 "use strict";
 
+import User from "./user";
+import Post from "./post";
+import Recipe from "./recipe";
+import Comment from "./comment";
 import Sequelize from "sequelize";
 import { local, rds } from "../config/config";
 
@@ -13,29 +17,22 @@ const sequelize = new Sequelize(
     config,
 );
 
-const user = require("./user")(sequelize, Sequelize.DataTypes);
-const post = require("./post")(sequelize, Sequelize.DataTypes);
-const recipe = require("./board")(sequelize, Sequelize.DataTypes);
-const comment = require("./comment")(sequelize, Sequelize.DataTypes);
+const user = User(sequelize, Sequelize.DataTypes);
+const post = Post(sequelize, Sequelize.DataTypes);
+const recipe = Recipe(sequelize, Sequelize.DataTypes);
+const comment = Comment(sequelize, Sequelize.DataTypes);
 
 db["User"] = user;
 db["Post"] = post;
 db["Recipe"] = recipe;
 db["Comment"] = comment;
 
-db.user.sync();
-db.post.sync();
-db.recipe.sync();
-db.comment.sync();
+db.User.sync();
+db.Post.sync();
+db.Recipe.sync();
+db.Comment.sync();
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-try {
-    await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-} catch (error) {
-    throw new Error("Unable to connect to the database:", error);
-}
 
 module.exports = db;

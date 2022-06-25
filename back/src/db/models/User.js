@@ -14,8 +14,12 @@
  *         - createdAt
  *         - updatedAt
  *       properties:
- *         title:
+ *         id:
  *           type: string
+ *           format: uuid
+ *         email:
+ *           type: string
+ *           format: email
  *         recipe:
  *           type: string
  *         review:
@@ -60,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             charset: "utf8",
             collate: "utf8_general_ci",
-            tableName: "User",
+            tableName: "Users",
             timestamps: true,
         },
     );

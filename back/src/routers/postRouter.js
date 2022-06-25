@@ -29,7 +29,7 @@ const postRouter = Router();
  *                   example: "Pasta Recipe"
  *                 recipe:
  *                   type: string
- *                   pattern: "^[0-9a-f]{24}$"
+ *                   format: uuid
  *                 review:
  *                   type: string
  *                   example: "Good"

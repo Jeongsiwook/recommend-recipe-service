@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             charset: "utf8",
             collate: "utf8_general_ci",
-            tableName: "Comment",
+            tableName: "Comments",
             timestamps: true,
         },
     );

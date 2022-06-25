@@ -7,6 +7,7 @@
  *     Post:
  *       type: object
  *       required:
+ *         - id
  *         - title
  *         - recipe
  *         - author
@@ -14,6 +15,9 @@
  *         - createdAt
  *         - updatedAt
  *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
  *         title:
  *           type: string
  *         recipe:
@@ -60,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             charset: "utf8",
             collate: "utf8_general_ci",
-            tableName: "Post",
+            tableName: "Posts",
             timestamps: true,
         },
     );
