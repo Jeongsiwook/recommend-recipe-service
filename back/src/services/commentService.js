@@ -1,4 +1,4 @@
-import { Comment, Post } from "../db";
+import { Comment } from "../db";
 
 class commentService {
     static addComment({ newComment }) {
