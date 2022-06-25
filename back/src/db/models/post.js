@@ -21,11 +21,11 @@
  *         title:
  *           type: string
  *         recipe:
- *           type: string
+ *           $ref: '#/components/schemas/Recipe'
  *         review:
  *           type: string
  *         author:
- *           type: string
+ *           $ref: '#/components/schemas/User'
  *         createdAt:
  *           type: string
  *           format: date-time

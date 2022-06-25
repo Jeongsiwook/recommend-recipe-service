@@ -7,10 +7,10 @@
  *     User:
  *       type: object
  *       required:
- *         - title
- *         - recipe
- *         - author
- *         - review
+ *         - id
+ *         - email
+ *         - name
+ *         - password
  *         - createdAt
  *         - updatedAt
  *       properties:
@@ -20,11 +20,12 @@
  *         email:
  *           type: string
  *           format: email
- *         recipe:
+ *         name:
  *           type: string
- *         review:
+ *         password:
  *           type: string
- *         author:
+ *           format: password
+ *         description:
  *           type: string
  *         createdAt:
  *           type: string
