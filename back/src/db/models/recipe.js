@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
-        "user",
+        "recipe",
         {
             id: {
                 type: DataTypes.UUID,
@@ -10,27 +10,19 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 allowNull: false,
             },
-            email: {
+            title: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
             },
-            name: {
+            content: {
                 type: DataTypes.STRING(255),
                 allowNull: false,
-            },
-            password: {
-                type: DataTypes.STRING(255),
-                allowNull: false,
-            },
-            description: {
-                type: DataTypes.STRING(255),
-                allowNull: true,
             },
         },
         {
             charset: "utf8",
             collate: "utf8_general_ci",
-            tableName: "user",
+            tableName: "recipe",
             timestamps: true,
         },
     );
