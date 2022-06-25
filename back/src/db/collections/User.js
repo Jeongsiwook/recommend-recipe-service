@@ -13,7 +13,7 @@ class User {
         return UserModel.findOne({ id: userId }).populate("recipes").lean();
     }
 
-    static async update({ userId, newValues }) {
+    static update({ userId, newValues }) {
         const filter = { id: userId };
         const update = { $set: newValues };
 
