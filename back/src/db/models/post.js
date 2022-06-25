@@ -11,6 +11,8 @@
  *         - recipe
  *         - author
  *         - review
+ *         - createdAt
+ *         - updatedAt
  *       properties:
  *         title:
  *           type: string
