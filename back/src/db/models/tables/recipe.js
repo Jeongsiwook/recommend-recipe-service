@@ -31,7 +31,6 @@
  *           type: string
  *           format: date-time
  */
-
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
         "Recipe",

@@ -1,7 +1,7 @@
 import { User } from "../db";
-import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { UserModel } from "../db/models/user";
 
 class userService {
     static async addUser({ name, email, password }) {
@@ -12,13 +12,12 @@ class userService {
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = {
-            id: uuidv4(),
             name,
             email,
             password: hashedPassword,
         };
 
-        return User.create({ newUser });
+        return UserModel.create({ newUser });
     }
 
     static async getUser({ email, password }) {
@@ -32,15 +31,11 @@ class userService {
             return { errorMessage: "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요." };
         }
 
-        const secretKey = process.env.JWT_SECRET_KEY;
-        if (!secretKey) {
-            return { errorMessage: "JWT_SECRET_KEY가 설정되지 않았습니다." };
-        }
-
-        const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
-        const id = user.id;
-        const name = user.name;
-        const description = user.description;
+        const { id, name, description } = user;
+        const token = jwt.sign(
+            { userId: id }, //
+            process.env.JWT_SECRET_KEY || "secret-key",
+        );
 
         return { token, id, email, name, description };
     }
@@ -78,12 +73,12 @@ class userService {
         return User.deleteById({ userId });
     }
 
-    static async addRecipe({ userId, title, ingredients, content }) {
+    static addRecipe({ userId, title, ingredients, content }) {
         const newRecipe = { title, ingredients, content };
         return Recipe.create({ userId, newRecipe });
     }
 
-    static async deleteRecipe({ recipeId }) {
+    static deleteRecipe({ recipeId }) {
         return Recipe.deleteById({ recipeId });
     }
 }

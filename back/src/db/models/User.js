@@ -1,28 +1,27 @@
-import models, { Sequelize } from "./index";
+import models, { Sequelize } from "./index.js";
 
-class User {
+class UserModel {
     static create({ newUser }) {
-        return models.Users.create(newUser);
+        return models.User.create(newUser);
     }
 
     static findById({ userId }) {
-        return models.Users.findOne({ where: { __id: userId } });
+        return models.User.findOne({ where: { __id: userId } });
     }
 
     static async findAndUpdate({ email, userId, fieldToUpdate }) {
-        console.log(userId, email, fieldToUpdate);
         if (userId) {
-            await models.Users.update(fieldToUpdate, { where: { __id: userId } });
-            return models.Users.findOne({ where: { __id: userId } });
+            await models.User.update(fieldToUpdate, { where: { __id: userId } });
+            return models.User.findOne({ where: { __id: userId } });
         }
 
-        await models.Users.update(fieldToUpdate, { where: { email: email } });
-        return models.Users.findOne({ where: { email: email } });
+        await models.User.update(fieldToUpdate, { where: { email: email } });
+        return models.User.findOne({ where: { email: email } });
     }
 
-    static async delete({ userId }) {
-        return models.Users.destroy({ where: { __id: userId } });
+    static delete({ userId }) {
+        return models.User.destroy({ where: { __id: userId } });
     }
 }
 
-export { User };
+export { UserModel };
