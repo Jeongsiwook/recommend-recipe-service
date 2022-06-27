@@ -38,7 +38,7 @@ const SignUp = () => {
         email: id,
         password: pw,
       });
-      navigate('/signup');
+      navigate('/home');
     } catch (e) {
       alert('이미 존재하거나 사용할 수 없는 ID 입니다.');
     }
