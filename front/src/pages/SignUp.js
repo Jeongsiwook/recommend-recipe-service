@@ -82,7 +82,7 @@ const SignUp = () => {
             ></Input>
           </Fieldset>
           <Fieldset>
-            <Label htmlFor="name">이름</Label>
+            <Label htmlFor="name">별명</Label>
             <Input
               value={name}
               id="name"

@@ -232,6 +232,7 @@ const Post = styled.div`
   border-radius: 1rem;
   background: white;
   margin: 0.5rem;
+  box-shadow: 0.5rem 0.5rem 1rem gray;
   & p {
     font-size: 1rem;
     margin: 1rem;
@@ -270,4 +271,5 @@ const Img = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   background: none;
+  cursor: pointer;
 `;

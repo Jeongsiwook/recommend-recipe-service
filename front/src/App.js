@@ -12,6 +12,7 @@ import Result from './pages/Result';
 import NotFound from './pages/NotFound';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import MyPage from './pages/MyPage';
 
 export const ResultContext = createContext();
 export const DispatchContext = createContext(null);
@@ -73,8 +74,9 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/community" element={<Community />} />
               <Route path="/result" element={<Result />} />
-              <Route path="/SignIn" element={<SignIn />} />
-              <Route path="/SignUp" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/mypage" element={<MyPage />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </Router>
