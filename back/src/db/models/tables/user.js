@@ -39,13 +39,14 @@ module.exports = (sequelize, DataTypes) => {
         "User",
         {
             id: {
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
                 primaryKey: true,
                 allowNull: false,
             },
             email: {
                 type: DataTypes.STRING(255),
+                unique: true,
                 allowNull: false,
             },
             name: {
