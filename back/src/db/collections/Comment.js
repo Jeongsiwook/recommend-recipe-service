@@ -6,14 +6,14 @@ class Comment {
     }
 
     static find(filter) {
-        return CommentModel.find(filter);
+        return CommentModel.find(filter).lean();
     }
 
-    static updateById({ id, toUpdate }) {
+    static update({ id, toUpdate }) {
         return CommentModel.findByIdAndUpdate(id, toUpdate, { new: true });
     }
 
-    static deleteById({ id }) {
+    static delete({ id }) {
         return CommentModel.findByIdAndDelete(id);
     }
 }

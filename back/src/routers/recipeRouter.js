@@ -12,9 +12,8 @@ recipeRouter.post("/recipes", async (req, res, next) => {
          #swagger.description = 'input 바탕으로 레시피를 생성한다.'
         */
         const { title, ingredients } = req.body;
-
         if (is.emptyObject(req.body)) {
-            throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
+            throw new Error("headers의 Content-Type을 application/json으로 설정해주세요.");
         }
 
         const newRecipe = { title, ingredients };

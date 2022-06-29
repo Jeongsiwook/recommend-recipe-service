@@ -1,41 +1,42 @@
 "use strict";
 
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.json")[env];
+import Sequelize from "sequelize";
+import User from "./tables/user";
+import Post from "./tables/post";
+import Recipe from "./tables/recipe";
+import Comment from "./tables/comment";
+import { local, rds } from "../config/config";
+
+const config = local;
 const db = {};
 
-let sequelize;
-if (config.use_env_variable) {
-    sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-    sequelize = new Sequelize(
-        config.database, //
-        config.username,
-        config.password,
-        config,
-    );
-}
+const sequelize = new Sequelize(
+    config.database, //
+    config.username,
+    config.password,
+    config,
+);
 
-fs.readdirSync(__dirname)
-    .filter((file) => {
-        return file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js";
-    })
-    .forEach((file) => {
-        const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-        db[model.name] = model;
-    });
+const user = User(sequelize, Sequelize.DataTypes);
+const post = Post(sequelize, Sequelize.DataTypes);
+const recipe = Recipe(sequelize, Sequelize.DataTypes);
+const comment = Comment(sequelize, Sequelize.DataTypes);
 
-Object.keys(db).forEach((modelName) => {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
-    }
-});
+db["User"] = user;
+db["Post"] = post;
+db["Recipe"] = recipe;
+db["Comment"] = comment;
+
+sequelize.sync();
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+try {
+    db.sequelize.authenticate();
+    console.log("✅ Connection has been established successfully.");
+} catch (error) {
+    console.error("❌ Unable to connect to the database:", error);
+}
 
 module.exports = db;

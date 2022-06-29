@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { Post } from "./models/Post";
-import { User } from "./models/User";
-import { Recipe } from "./models/Recipe";
-import { Comment } from "./models/Comment";
+import { Post } from "./collections/Post";
+import { User } from "./collections/User";
+import { Recipe } from "./collections/Recipe";
+import { Comment } from "./collections/Comment";
 
 const DB_URL = process.env.MONGODB_URL;
 if (!DB_URL) throw new Error("MongoDB 서버 주소가 설정되지 않았습니다.");

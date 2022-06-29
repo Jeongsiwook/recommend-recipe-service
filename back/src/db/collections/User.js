@@ -13,11 +13,12 @@ class User {
         return UserModel.findOne({ id: userId }).populate("recipes");
     }
 
-    static async update({ userId, newValues }) {
-        const filter = { id: userId };
-        const update = { $set: newValues };
-
-        return UserModel.findOneAndUpdate(filter, update, { new: true });
+    static update({ userId, newValues }) {
+        return UserModel.findOneAndUpdate(
+            { id: userId }, //
+            { $set: newValues },
+            { new: true },
+        );
     }
 
     static async deleteById({ userId }) {
