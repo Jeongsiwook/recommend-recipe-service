@@ -19,11 +19,11 @@ class postService {
     }
 
     static updatePost({ id, toUpdate }) {
-        return Post.updateById({ id, toUpdate });
+        return Post.update({ id, toUpdate });
     }
 
     static deletePost({ id }) {
-        return Post.deleteById({ id });
+        return Post.delete({ id });
     }
 }
 

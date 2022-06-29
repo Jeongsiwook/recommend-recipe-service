@@ -13,11 +13,11 @@ class commentService {
     }
 
     static updateComment({ id, toUpdate }) {
-        return Comment.updateById({ id, toUpdate });
+        return Comment.update({ id, toUpdate });
     }
 
     static deleteComment({ id }) {
-        return Comment.deleteById({ id });
+        return Comment.delete({ id });
     }
 }
 
