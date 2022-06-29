@@ -38,8 +38,8 @@ module.exports = (sequelize, DataTypes) => {
         "Post",
         {
             id: {
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
+                type: DataTypes.INTEGER(11),
+                autoIncrement: true,
                 primaryKey: true,
                 allowNull: false,
             },
@@ -48,11 +48,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             recipe: {
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER(11),
                 allowNull: false,
             },
             author: {
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER(11),
                 allowNull: false,
             },
             review: {

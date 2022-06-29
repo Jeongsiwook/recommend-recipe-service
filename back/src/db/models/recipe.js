@@ -5,8 +5,8 @@ class Recipe {
         return models.Recipe.create(newRecipe);
     }
 
-    static findById({ __id }) {
-        return models.Recipe.findOne({ where: { __id } });
+    static findById({ id }) {
+        return models.Recipe.findOne({ where: { id } });
     }
 
     static findOne(where) {
@@ -17,8 +17,8 @@ class Recipe {
         return models.Recipe.update(toUpdate, { where: { email } });
     }
 
-    static delete({ __id }) {
-        return models.Recipe.destroy({ where: { __id } });
+    static delete({ id }) {
+        return models.Recipe.destroy({ where: { id } });
     }
 }
 

@@ -5,20 +5,20 @@ class Post {
         return models.Post.create(newPost);
     }
 
-    static findById({ __id }) {
-        return models.Post.findOne({ where: { __id } });
+    static findById({ id }) {
+        return models.Post.findOne({ where: { id } });
     }
 
     static findOne(where) {
         return models.Post.findOne({ where });
     }
 
-    static update({ __id, toUpdate }) {
-        return models.Post.update(toUpdate, { where: { __id } });
+    static update({ id, toUpdate }) {
+        return models.Post.update(toUpdate, { where: { id } });
     }
 
-    static delete({ __id }) {
-        return models.Post.destroy({ where: { __id } });
+    static delete({ id }) {
+        return models.Post.destroy({ where: { id } });
     }
 }
 

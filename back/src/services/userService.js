@@ -1,7 +1,7 @@
 import { User } from "../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User as UserModel } from "../db/models/u1ser";
+import { User as UserModel } from "../db/models/user";
 
 class userService {
     static async addUser({ name, email, password }) {
@@ -17,6 +17,7 @@ class userService {
             password: hashedPassword,
         };
 
+        // return User.create({ newUser });
         return UserModel.create({ newUser });
     }
 
@@ -24,19 +25,16 @@ class userService {
         // const user = await User.findByEmail({ email });
         const user = await UserModel.findOne({ email });
         if (!user) {
-            return { errorMessage: "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요." };
+            return { errorMessage: "해당 이메일은 가입 내역이 없습니다." };
         }
 
         const auth = await bcrypt.compare(password, user.password);
         if (!auth) {
-            return { errorMessage: "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요." };
+            return { errorMessage: "비밀번호가 일치하지 않습니다." };
         }
 
-        const { __id, name, description } = user;
-        // const token = jwt.sign(
-        //     { userId: id }, //
-        //     process.env.JWT_SECRET_KEY || "secret-key",
-        // );
+        const { id, name, description } = user;
+        const token = jwt.sign({ userId: id }, process.env.JWT_SECRET_KEY || "secret-key");
 
         return user;
     }
@@ -45,7 +43,7 @@ class userService {
         // let user = await User.findById({ userId });
         let user = await UserModel.findById({ userId });
         if (!user) {
-            return { errorMessage: "가입 내역이 없습니다. 다시 한 번 확인해 주세요." };
+            return { errorMessage: "가입 내역이 없습니다." };
         }
 
         const { name, description } = toUpdate;
@@ -60,7 +58,7 @@ class userService {
     static async getUserInfo({ userId }) {
         const user = await User.findById({ userId });
         if (!user) {
-            return { errorMessage: "해당 사용자는 가입 내역이 없습니다. 다시 한 번 확인해 주세요." };
+            return { errorMessage: "가입 내역이 없습니다." };
         }
 
         return user;
@@ -69,7 +67,7 @@ class userService {
     static async deleteUser({ userId }) {
         const user = await User.findById({ userId });
         if (!user) {
-            return { errorMessage: "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요." };
+            return { errorMessage: "가입 내역이 없습니다." };
         }
 
         return User.deleteById({ userId });

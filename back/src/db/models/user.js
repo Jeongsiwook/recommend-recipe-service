@@ -5,20 +5,20 @@ class User {
         return models.User.create(newUser);
     }
 
-    static findById({ __id }) {
-        return models.User.findOne({ where: { __id } });
+    static findById({ id }) {
+        return models.User.findOne({ where: { id } });
     }
 
     static findOne(where) {
         return models.User.findOne({ where });
     }
 
-    static update({ __id, toUpdate }) {
-        return models.User.update(toUpdate, { where: { __id } });
+    static update({ id, toUpdate }) {
+        return models.User.update(toUpdate, { where: { id } });
     }
 
-    static delete({ __id }) {
-        return models.User.destroy({ where: { __id } });
+    static delete({ id }) {
+        return models.User.destroy({ where: { id } });
     }
 }
 

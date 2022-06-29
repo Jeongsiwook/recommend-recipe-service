@@ -5,20 +5,20 @@ class Comment {
         return models.Comment.create(newComment);
     }
 
-    static findById({ __id }) {
-        return models.Comment.findOne({ where: { __id } });
+    static findById({ id }) {
+        return models.Comment.findOne({ where: { id } });
     }
 
     static findOne(where) {
         return models.Comment.findOne({ where });
     }
 
-    static update({ __id, toUpdate }) {
-        return models.Comment.update(toUpdate, { where: { __id } });
+    static update({ id, toUpdate }) {
+        return models.Comment.update(toUpdate, { where: { id } });
     }
 
-    static delete({ __id }) {
-        return models.Comment.destroy({ where: { __id } });
+    static delete({ id }) {
+        return models.Comment.destroy({ where: { id } });
     }
 }
 

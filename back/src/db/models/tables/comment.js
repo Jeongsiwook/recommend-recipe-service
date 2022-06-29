@@ -5,17 +5,17 @@ module.exports = (sequelize, DataTypes) => {
         "Comment",
         {
             id: {
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
+                type: DataTypes.INTEGER(11),
+                autoIncrement: true,
                 primaryKey: true,
                 allowNull: false,
             },
             post: {
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER(11),
                 allowNull: false,
             },
             author: {
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER(11),
                 allowNull: false,
             },
             comment: {
