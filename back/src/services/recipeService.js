@@ -4,19 +4,20 @@ import { recipeAiModel } from "../utils/recipeAiModel";
 class recipeService {
     static async createRecipe({ title, ingredients }) {
         const createdRecipe = await recipeAiModel({ title, ingredients });
-
         const recipe = createdRecipe.split("<unused4>")[1].slice(0, -15);
-
         return { title, ingredients, recipe };
     }
 
-    static addRecipe({ userId, title, ingredients, content }) {
-        const newRecipe = { title, ingredients, content };
-        return Recipe.create({ userId, newRecipe });
+    static addRecipe({ newRecipe }) {
+        return Recipe.create({ newRecipe });
+    }
+
+    static getRecipe({ id }) {
+        return Recipe.findById({ id });
     }
 
     static deleteRecipe({ recipeId }) {
-        return Recipe.deleteById({ recipeId });
+        return Recipe.delete({ recipeId });
     }
 }
 

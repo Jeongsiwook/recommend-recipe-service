@@ -89,13 +89,22 @@ userRouter.post("/users", async (req, res, next) => {
  *           content:
  *             application/json:
  *               schema:
- *                 allOf:
- *                   - type: object
- *                     properties:
- *                       token:
- *                         type: string
- *                         format: token
- *                   - $ref: '#/components/schemas/User'
+ *                 type: object
+ *                 properties:
+ *                   token:
+ *                     type: string
+ *                     format: token
+ *                   _id:
+ *                     type: string
+ *                     format: objectId
+ *                   email:
+ *                     type: string
+ *                     format: email
+ *                   name:
+ *                     type: string
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
  */
 userRouter.post("/login", async (req, res, next) => {
     try {
@@ -152,15 +161,8 @@ userRouter.get("/users/:id", async (req, res, next) => {
 /**
  * @swagger
  * paths:
- *   /users/{id}:
+ *   /users:
  *     put:
- *       parameters:
- *         - in: path
- *           name: id
- *           required: true
- *           schema:
- *             type: string
- *             format: ObjectId
  *       tags: [User]
  *       summary: Update User
  *       requestBody:
@@ -203,15 +205,8 @@ userRouter.put("/users", loginRequired, async (req, res, next) => {
 /**
  * @swagger
  * paths:
- *   /users/{id}:
+ *   /users:
  *     delete:
- *       parameters:
- *         - in: path
- *           name: id
- *           required: true
- *           schema:
- *             type: string
- *             format: ^[0-9a-f]{24}$
  *       tags: [User]
  *       summary: Delete User
  *       responses:
@@ -228,39 +223,6 @@ userRouter.delete("/users", loginRequired, async (req, res, next) => {
         const userId = req.currentUserId;
 
         const result = await userService.deleteUser({ userId });
-        if (result.errorMessage) {
-            throw new Error(result.errorMessage);
-        }
-
-        return res.sendStatus(200);
-    } catch (error) {
-        next(error);
-    }
-});
-
-userRouter.post("/users/recipe", loginRequired, async (req, res, next) => {
-    try {
-        const userId = req.currentUserId;
-        const { title, ingredients, content } = req.body;
-
-        const newRecipe = { userId, title, ingredients, content };
-
-        const storedRecipe = await userService.addRecipe(newRecipe);
-        if (storedRecipe.errorMessage) {
-            throw new Error(storedRecipe.errorMessage);
-        }
-
-        return res.status(201).json(storedRecipe);
-    } catch (error) {
-        next(error);
-    }
-});
-
-userRouter.delete("/users/recipe/:id", loginRequired, async (req, res, next) => {
-    try {
-        const { id } = req.params;
-
-        const result = await userService.deleteRecipe({ recipeId: id });
         if (result.errorMessage) {
             throw new Error(result.errorMessage);
         }

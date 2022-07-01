@@ -1,7 +1,7 @@
 import { User } from "../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User as UserModel } from "../db/models/user";
+// import { User as UserModel } from "../db/models/user";
 
 class userService {
     static async addUser({ name, email, password, description }) {
@@ -34,9 +34,13 @@ class userService {
             return { errorMessage: "비밀번호가 일치하지 않습니다." };
         }
 
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY || "secret-key");
+        const token = jwt.sign(
+            { userId: user._id }, //
+            process.env.JWT_SECRET_KEY || "secret-key",
+        );
+        const { _id, name, createdAt } = user;
 
-        return { token, user };
+        return { token, _id, email, name, createdAt };
     }
 
     static async getUserInfo({ userId }) {
@@ -51,18 +55,11 @@ class userService {
     static async setUser({ userId, toUpdate }) {
         // const user = await UserModel.findById({ userId });
         const user = await User.findById({ userId });
-
         if (!user) {
             return { errorMessage: "가입 내역이 없습니다." };
         }
 
-        const { name, description } = toUpdate;
-        if (!name) name = user.name;
-        if (!description) description = user.description;
-
-        const newValues = { name, description };
-
-        return User.update({ userId, newValues });
+        return User.update({ userId, toUpdate });
     }
 
     static async deleteUser({ userId }) {
@@ -71,7 +68,7 @@ class userService {
             return { errorMessage: "가입 내역이 없습니다." };
         }
 
-        return User.deleteById({ userId });
+        return User.delete({ userId });
     }
 }
 

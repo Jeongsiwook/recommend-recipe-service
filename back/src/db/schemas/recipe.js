@@ -10,7 +10,7 @@ import { Schema, model } from "mongoose";
  *         - _id
  *         - title
  *         - ingredients
- *         - content
+ *         - recipe
  *         - createdAt
  *         - updatedAt
  *         - __v
@@ -20,10 +20,12 @@ import { Schema, model } from "mongoose";
  *           format: objectId
  *         title:
  *           type: string
+ *         author:
+ *           type: string
  *         ingredients:
  *           type: array
  *           example: [ingredient1, ingredient2]
- *         content:
+ *         recipe:
  *           type: string
  *         createdAt:
  *           type: string
@@ -41,11 +43,16 @@ const RecipeSchema = new Schema(
             trim: true,
             required: true,
         },
+        author: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: false,
+        },
         ingredients: {
             type: Array,
             required: true,
         },
-        content: {
+        recipe: {
             type: String,
             trim: true,
             required: true,
