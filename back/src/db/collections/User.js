@@ -6,18 +6,19 @@ class User {
     }
 
     static findByEmail({ email }) {
-        return UserModel.findOne({ email }).lean();
+        return UserModel.findOne({ email });
     }
 
     static findById({ userId }) {
-        return UserModel.findOne({ id: userId }).populate("recipes").lean();
+        return UserModel.findOne({ id: userId });
     }
 
-    static async update({ userId, newValues }) {
-        const filter = { id: userId };
-        const update = { $set: newValues };
-
-        return UserModel.findOneAndUpdate(filter, update, { new: true });
+    static update({ userId, newValues }) {
+        return UserModel.findOneAndUpdate(
+            { id: userId }, //
+            { $set: newValues },
+            { new: true },
+        );
     }
 
     static async deleteById({ userId }) {

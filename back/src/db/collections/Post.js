@@ -6,18 +6,18 @@ class Post {
     }
 
     static findById({ id }) {
-        return PostModel.findById(id).lean();
+        return PostModel.findById(id);
     }
 
     static find({ filter }) {
-        return PostModel.find(filter).sort({ createdAt: -1 }).lean();
+        return PostModel.find(filter).sort({ createdAt: -1 });
     }
 
-    static updateById({ id, toUpdate }) {
+    static update({ id, toUpdate }) {
         return PostModel.findByIdAndUpdate(id, toUpdate, { new: true });
     }
 
-    static deleteById({ id }) {
+    static delete({ id }) {
         return PostModel.findByIdAndDelete(id);
     }
 }

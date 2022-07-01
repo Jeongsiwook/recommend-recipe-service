@@ -4,20 +4,31 @@ import { Schema, model } from "mongoose";
  * @swagger
  * components:
  *   schemas:
- *     post:
+ *     Post:
  *       type: object
  *       required:
- *         - name
- *         - email
+ *         - _id
+ *         - title
+ *         - recipe
+ *         - review
+ *         - author
+ *         - createdAt
+ *         - updatedAt
+ *         - __v
  *       properties:
+ *         _id:
+ *           type: string
+ *           format: objectId
  *         title:
  *           type: string
  *         recipe:
  *           type: string
+ *           format: objectId
  *         review:
  *           type: string
  *         author:
  *           type: string
+ *           format: objectId
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -35,10 +46,9 @@ const PostSchema = new Schema(
             trim: true,
         },
         recipe: {
-            type: String,
+            type: Schema.Types.ObjectId,
+            ref: "Recipe",
             required: true,
-            immutable: true,
-            trim: true,
         },
         review: {
             type: String,

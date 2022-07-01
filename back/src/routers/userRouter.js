@@ -5,20 +5,52 @@ import { loginRequired } from "../middlewares/loginRequired";
 
 const userRouter = Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ */
+
+/**
+ * @swagger
+ * paths:
+ *   /users:
+ *     post:
+ *       tags: [User]
+ *       summary: Create User
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: array
+ *                   format: email
+ *                 password:
+ *                   type: string
+ *                   format: password
+ *                 description:
+ *                   type: string
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
 userRouter.post("/users", async (req, res, next) => {
     try {
-        /*
-         #swagger.tags = ['Users'] 
-         #swagger.summary = '회원가입' 
-         #swagger.description = 'user를 등록한다.' 
-        */
-        const { name, email, password } = req.body;
-
+        const { name, email, password, description } = req.body;
         if (is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
         }
 
-        const newUser = { name, email, password };
+        const newUser = { name, email, password, description };
 
         const createdUser = await userService.addUser(newUser);
         if (createdUser.errorMessage) {
@@ -31,13 +63,42 @@ userRouter.post("/users", async (req, res, next) => {
     }
 });
 
-userRouter.post("/users/login", async function (req, res, next) {
+/**
+ * @swagger
+ * paths:
+ *   /login:
+ *     post:
+ *       tags: [User]
+ *       summary: Login
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                   format: email
+ *                 password:
+ *                   type: string
+ *                   format: password
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 allOf:
+ *                   - type: object
+ *                     properties:
+ *                       token:
+ *                         type: string
+ *                         format: token
+ *                   - $ref: '#/components/schemas/User'
+ */
+userRouter.post("/login", async (req, res, next) => {
     try {
-        /*
-         #swagger.tags = ['Users'] 
-         #swagger.summary = '로그인' 
-         #swagger.description = '로그인 한다.' 
-        */
         const { email, password } = req.body;
 
         const user = await userService.getUser({ email, password });
@@ -45,20 +106,84 @@ userRouter.post("/users/login", async function (req, res, next) {
             throw new Error(user.errorMessage);
         }
 
-        return res.status(200).send(user);
+        return res.status(200).json(user);
     } catch (error) {
         next(error);
     }
 });
 
+/**
+ * @swagger
+ * paths:
+ *   /users/{id}:
+ *     get:
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *             format: objectId
+ *       tags: [User]
+ *       summary: Read User
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
+userRouter.get("/users/:id", loginRequired, async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const currentUserInfo = await userService.getUserInfo({ userId: id });
+        if (currentUserInfo.errorMessage) {
+            throw new Error(currentUserInfo.errorMessage);
+        }
+
+        return res.status(200).json(currentUserInfo);
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @swagger
+ * paths:
+ *   /users/{id}:
+ *     put:
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *             format: ObjectId
+ *       tags: [User]
+ *       summary: Update User
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
 userRouter.put("/users", loginRequired, async (req, res, next) => {
     try {
-        /*
-         #swagger.tags = ['Users'] 
-         #swagger.summary = '사용자 정보 변경' 
-         #swagger.description = 'user 정보를 변경한다.' 
-         #swagger.security = [{ "bearerAuth": [] }] 
-        */
         const userId = req.currentUserId;
         const { name, description } = req.body;
 
@@ -75,35 +200,31 @@ userRouter.put("/users", loginRequired, async (req, res, next) => {
     }
 });
 
-userRouter.get("/users/:id", loginRequired, async (req, res, next) => {
-    try {
-        /*
-         #swagger.tags = ['Users'] 
-         #swagger.summary = '사용자 정보 가져오기' 
-         #swagger.description = 'user 정보를 가져온다.' 
-         #swagger.security = [{ "bearerAuth": [] }] 
-        */
-        const { id } = req.params;
-
-        const currentUserInfo = await userService.getUserInfo({ userId: id });
-        if (currentUserInfo.errorMessage) {
-            throw new Error(currentUserInfo.errorMessage);
-        }
-
-        return res.status(200).send(currentUserInfo);
-    } catch (error) {
-        next(error);
-    }
-});
-
+/**
+ * @swagger
+ * paths:
+ *   /users/{id}:
+ *     delete:
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *             format: ^[0-9a-f]{24}$
+ *       tags: [User]
+ *       summary: Delete User
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             text/plain:
+ *               schema:
+ *                 type: string
+ *                 example: OK
+ */
 userRouter.delete("/users", loginRequired, async (req, res, next) => {
     try {
-        /*
-         #swagger.tags = ['Users'] 
-         #swagger.summary = '사용자 탈퇴' 
-         #swagger.description = 'user 정보를 삭제한다.' 
-         #swagger.security = [{ "bearerAuth": [] }] 
-        */
         const userId = req.currentUserId;
 
         const result = await userService.deleteUser({ userId });
@@ -119,12 +240,6 @@ userRouter.delete("/users", loginRequired, async (req, res, next) => {
 
 userRouter.post("/users/recipe", loginRequired, async (req, res, next) => {
     try {
-        /*
-         #swagger.tags = ['Users'] 
-         #swagger.summary = '레시피 저장' 
-         #swagger.description = '마음에 드는 레시피를 마이페이지에 저장한다.' 
-         #swagger.security = [{ "bearerAuth": [] }] 
-        */
         const userId = req.currentUserId;
         const { title, ingredients, content } = req.body;
 
@@ -140,14 +255,9 @@ userRouter.post("/users/recipe", loginRequired, async (req, res, next) => {
         next(error);
     }
 });
+
 userRouter.delete("/users/recipe/:id", loginRequired, async (req, res, next) => {
     try {
-        /*
-         #swagger.tags = ['Users'] 
-         #swagger.summary = '레시피 삭제' 
-         #swagger.description = '마이페이지에 저장된 레시피를 삭제한다.' 
-         #swagger.security = [{ "bearerAuth": [] }] 
-        */
         const { id } = req.params;
 
         const result = await userService.deleteRecipe({ recipeId: id });
