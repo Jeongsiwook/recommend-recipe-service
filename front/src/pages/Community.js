@@ -46,18 +46,20 @@ const Community = () => {
   };
 
   React.useEffect(() => {
-    
     if (filterValue === 'thumb') {
-      const newData = datas.sort((a, b) => Number(b.good) - Number(a.good)).map((datum) => datum)
-      setSortedList(newData)
+      const newData = datas
+        .sort((a, b) => Number(b.good) - Number(a.good))
+        .map((datum) => datum);
+      setSortedList(newData);
     } else if (filterValue === 'new') {
-      const newData = datas.sort((a, b) => {
-        return +new Date(b.date) - +new Date(a.date)
-      }).map((datum) => datum)
+      const newData = datas
+        .sort((a, b) => {
+          return +new Date(b.date) - +new Date(a.date);
+        })
+        .map((datum) => datum);
       setSortedList(newData);
     }
-  }, [filterValue])
-
+  }, [filterValue]);
 
   useEffect(() => {
     // TO DO: 서버에서 데이터 가져오기
@@ -77,64 +79,63 @@ const Community = () => {
         </Div2>
       </Div1>
       <PostDiv>
-        {sortedList
-          .map((d, idx) => (
-            <Post key={`post-${idx}`}>
-              <div
+        {sortedList.map((d, idx) => (
+          <Post key={`post-${idx}`}>
+            <div
+              style={{
+                border: '0.1rem solid whitesmoke',
+                borderRadius: '1rem',
+              }}
+            >
+              <p
                 style={{
-                  border: '0.1rem solid whitesmoke',
-                  borderRadius: '1rem',
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  margin: '1rem 0 0.3rem 1rem',
                 }}
               >
-                <p
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: '1rem',
-                    margin: '1rem 0 0.3rem 1rem',
-                  }}
-                >
-                  {d.cooking}
-                </p>
-                <p
-                  style={{
-                    fontSize: '1rem',
-                    margin: '0 0 1rem 1rem',
-                    color: 'gray',
-                  }}
-                >
-                  {d.writer} {'               '} {d.date}
-                </p>
-              </div>
-              <div
+                {d.cooking}
+              </p>
+              <p
                 style={{
-                  borderBottom: '0.1rem solid whitesmoke',
+                  fontSize: '1rem',
+                  margin: '0 0 1rem 1rem',
+                  color: 'gray',
                 }}
               >
-                <p>{d.ingredients}</p>
-                <p>{d.recipe}</p>
-              </div>
-              <div
-                style={{
-                  borderBottom: '0.1rem solid whitesmoke',
-                }}
-              >
-                <p>{d.content}</p>
-              </div>
+                {d.writer} {'               '} {d.date}
+              </p>
+            </div>
+            <div
+              style={{
+                borderBottom: '0.1rem solid whitesmoke',
+              }}
+            >
+              <p>{d.ingredients}</p>
+              <p>{d.recipe}</p>
+            </div>
+            <div
+              style={{
+                borderBottom: '0.1rem solid whitesmoke',
+              }}
+            >
+              <p>{d.content}</p>
+            </div>
 
-              <BtnContainer>
-                <button style={{ border: 'none', background: 'white' }}>
-                  <Img alt="좋아요" src="./imgs/heart.png" />
-                </button>
-                <button style={{ border: 'none', background: 'white' }}>
-                  <Img alt="댓글" src="./imgs/comment.png" />
-                </button>
-                <button style={{ border: 'none', background: 'white' }}>
-                  <Img alt="북마크" src="./imgs/bookmark.png" />
-                </button>
-              </BtnContainer>
-              <p style={{ fontWeight: 'bold' }}>좋아요 {d.good}개</p>
-            </Post>
-        ))} 
+            <BtnContainer>
+              <button style={{ border: 'none', background: 'white' }}>
+                <Img alt="좋아요" src="./imgs/heart.png" />
+              </button>
+              <button style={{ border: 'none', background: 'white' }}>
+                <Img alt="댓글" src="./imgs/comment.png" />
+              </button>
+              <button style={{ border: 'none', background: 'white' }}>
+                <Img alt="북마크" src="./imgs/bookmark.png" />
+              </button>
+            </BtnContainer>
+            <p style={{ fontWeight: 'bold' }}>좋아요 {d.good}개</p>
+          </Post>
+        ))}
       </PostDiv>
       <Filter2>
         <Selector>

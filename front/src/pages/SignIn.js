@@ -25,7 +25,7 @@ const SignIn = () => {
   };
   const handleSubmit = async () => {
     try {
-      const res = await Api.post('users/login', {
+      const res = await Api.post('login', {
         email: id,
         password: pw,
       });
