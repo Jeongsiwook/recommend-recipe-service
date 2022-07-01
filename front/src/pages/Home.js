@@ -22,9 +22,9 @@ const Home = () => {
   };
 
   const handleSubmit = async () => {
-    const ingredientsPreprocessing = ingredients
-      .split(',')
-      .map((ingredient) => ingredient.trim());
+    const ingredientsPreprocessing = /,/i.test(ingredients)
+      ? ingredients.split(',').map((ingredient) => ingredient.trim())
+      : [ingredients];
     try {
       const res = await Api.post('recipes', {
         title: cooking,
