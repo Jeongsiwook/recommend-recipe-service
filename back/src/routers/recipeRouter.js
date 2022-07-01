@@ -39,7 +39,7 @@ recipeRouter.post("/recipes", async (req, res, next) => {
  *   /recipes:
  *     post:
  *       tags: [Recipe]
- *       summary: Show Recipe
+ *       summary: Read Recipe by Filter
  *       requestBody:
  *         required: true
  *         content:

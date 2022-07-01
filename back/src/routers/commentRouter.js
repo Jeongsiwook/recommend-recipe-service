@@ -79,7 +79,7 @@ commentRouter.get("/posts/:id/comments", commentController.getComment);
  *             type: string
  *             format: objectId
  *       tags: [Comment]
- *       summary: Read Comment by Post
+ *       summary: Update Comment
  *       requestBody:
  *         required: true
  *         content:
