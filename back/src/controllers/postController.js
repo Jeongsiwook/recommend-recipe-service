@@ -29,9 +29,9 @@ class postController {
 
     static async getRank(req, res, next) {
         try {
-            const { filter, page } = req.params;
+            const page = req.query.page ?? 1;
 
-            const posts = await postService.getRank({ filter, page });
+            const posts = await postService.getRank({ page });
 
             return res.status(200).json(posts);
         } catch (error) {

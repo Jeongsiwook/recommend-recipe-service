@@ -164,6 +164,7 @@ userRouter.get("/users/:id", loginRequired, async (req, res, next) => {
  *       tags: [User]
  *       summary: Update User
  *       requestBody:
+ *         required: true
  *         content:
  *           application/json:
  *             schema:

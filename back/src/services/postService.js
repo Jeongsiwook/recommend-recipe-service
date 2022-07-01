@@ -11,7 +11,7 @@ class postService {
         return post;
     }
 
-    static getRank({ filter, page }) {
+    static getRank({ page }) {
         return Post.find({ filter })
             .populate("author", "name")
             .skip((page - 1) * 10)
