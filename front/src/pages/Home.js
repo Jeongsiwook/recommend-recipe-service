@@ -1,27 +1,17 @@
-// 홈
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Nav from '../components/Nav';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { ResultContext } from '../App';
 
-const InputStatus = {
-  NORMAL: 'normal',
-  ERROR: 'error',
-  SUCCESS: 'success',
-};
+import * as Api from '../Api';
 
 const Home = () => {
   const [cooking, setCooking] = useState('');
   const [ingredients, setIngredients] = useState([]);
-
-  const [cookingError, setCookingError] = useState(null);
-  const [ingredientsError, setIngredientsError] = useState(null);
-
-  const [cookingInputStatus, setCookingInputStatus] = useState(
-    InputStatus.NORMAL
-  );
-  const [ingredientsInputStatus, setIngredientsInputStatus] = useState(
-    InputStatus.NORMAL
-  );
+  const { setResultCooking, setResultIngredients, setResultRecipe } =
+    useContext(ResultContext);
+  const navigate = useNavigate();
 
   const handleCookingChange = (e) => {
     setCooking(e.target.value);
@@ -31,13 +21,6 @@ const Home = () => {
     setIngredients(e.target.value);
   };
 
-<<<<<<< HEAD
-  const validateCooking = (cooking) => {
-    if (cooking.length < 1 || cooking.length > 10) {
-      setCookingError('이름은 1글자 이상, 10글자 이하여야 합니다.');
-      setCookingInputStatus(InputStatus.ERROR);
-      return;
-=======
   const handleSubmit = async () => {
     const ingredientsPreprocessing = ingredients
       .split(',')
@@ -55,80 +38,74 @@ const Home = () => {
       navigate('/result');
     } catch (e) {
       console.log(e);
->>>>>>> master2
     }
-
-    setCookingInputStatus(InputStatus.SUCCESS);
-  };
-
-  const validateIngredients = (ingredient) => {
-    setIngredientsInputStatus(InputStatus.SUCCESS);
-  };
-
-  const validateForm = (form) => {
-    validateCooking(form.cooking);
-    validateIngredients(form.ingredients);
-  };
-
-  const handleSubmit = () => {
-    const formData = { cooking, ingredients };
-    validateForm(formData);
   };
 
   return (
     <Container>
       <Nav />
+
       <FormContainer>
+        <FloatingContainer1>
+          <img src="./imgs/tomato.png" alt="토마토" style={{ width: '5rem' }} />
+        </FloatingContainer1>
+        <FloatingContainer2>
+          <img src="./imgs/onion.png" alt="파" style={{ width: '10rem' }} />
+        </FloatingContainer2>
+        <FloatingContainer3>
+          <img
+            src="./imgs/banana.png"
+            alt="바나나"
+            style={{ width: '10rem' }}
+          />
+        </FloatingContainer3>
+
         <FormFieldset>
-          <FormLabel
-            error={cookingInputStatus === InputStatus.ERROR}
-            htmlFor='cooking'
-          >
-            음식명
-          </FormLabel>
+          <FormLabel htmlFor="cooking">음식명</FormLabel>
           <FormInput
             value={cooking}
-            id='cooking'
+            id="cooking"
             onChange={handleCookingChange}
-            type='text'
-            name='cooking'
-            status={cookingInputStatus}
-            placeholder='음식명을 입력해주세요.'
+            type="text"
+            name="cooking"
+            placeholder="음식명을 입력해주세요."
           />
-
-          <FormError>
-            {cookingInputStatus === InputStatus.ERROR && cookingError}
-          </FormError>
         </FormFieldset>
 
         <FormFieldset>
-          <FormLabel
-            error={ingredientsInputStatus === InputStatus.ERROR}
-            htmlFor='ingredients'
-          >
-            식재료
-          </FormLabel>
+          <FormLabel htmlFor="ingredients">식재료</FormLabel>
           <FormInput
-            id='ingredients'
+            id="ingredients"
             value={ingredients}
             onChange={handleIngredientsChange}
-            type='text'
-            name='ingredients'
-            status={ingredientsInputStatus}
-            placeholder='식재료를 띄어쓰기로 구분해서 입력해주세요.'
+            type="text"
+            name="ingredients"
+            placeholder="식재료를 콤마(,)로 구분해서 입력해주세요."
           />
-
-          <FormError>
-            {ingredientsInputStatus === InputStatus.ERROR && ingredientsError}
-          </FormError>
         </FormFieldset>
 
         <ButtonContainer>
-          <FormButton onClick={handleSubmit} buttonType='submit' type='button'>
+          <FormButton onClick={handleSubmit} buttonType="submit" type="button">
             레시피 추천받기
           </FormButton>
         </ButtonContainer>
       </FormContainer>
+
+      <InfoContainer>
+        <Info>
+          <img style={{ width: '9rem' }} src="./imgs/logo.png" alt="로고"></img>
+        </Info>
+        <Info>
+          <p>먹고 싶은 음식의 이름을 입력하세요!</p>
+          <p>가지고 계신 식재료를 모두 입력하세요!</p>
+          <p>레시피 추천받기 버튼을 눌러 결과를 확인하세요!</p>
+        </Info>
+        <Info>
+          <p>된장찌개가 먹고 싶은데 가진 재료가 이것뿐이야!</p>
+          <p>음식명 : 된장찌개</p>
+          <p>식재료 : 된장, 간장, 상추, 토마토</p>
+        </Info>
+      </InfoContainer>
     </Container>
   );
 };
@@ -143,88 +120,112 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-// const MiddleContainer = styled.div`
-//   display: flex;
-//   align-itmes: center;
-//   flex-direction: column;
-//   height: 40rem;
-//   background: red;
-// `;
-// const Cooking = styled.div`
-//   width: 40rem;
-//   height: 10rem;
-//   display: flex;
-//   justify-content: center;
-//   background: blue;
-// `;
-// const Ingredients = styled.div`
-//   width: 40rem;
-//   height: 50rem;
-//   background: yellow;
-// `;
+
 const FormContainer = styled.form`
-  min-width: 300px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  margin: 3rem;
+  border: none;
+  border-radius: 2rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+    url('./imgs/ingredients.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 const FormFieldset = styled.fieldset`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  align-items: center;
   border: none;
-  padding: 12px 0;
+  margin: 0 1rem;
+`;
 
-  &:not(:first-of-type) {
-    border-bottom: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
-  }
-`;
-const textError = css`
-  color: #ff6b6b;
-`;
 const FormLabel = styled.label`
-  display: block;
-  padding-bottom: 8px;
-  font-size: 0.8rem;
-  ${(props) => props.error && textError}
+  display: flex;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  justify-content: center;
 `;
 
-const inputInvalid = css`
-  border: 2px solid #ff6b6b;
-`;
-const inputValid = css`
-  border: 2px solid #51cf66;
-`;
 const FormInput = styled.input`
   display: block;
-  padding: 4px;
+  height: 2rem;
+  width: 23rem;
   border: 2px solid #dee2e6;
-  border-radius: 3px;
-
-  ${({ status }) => status === InputStatus.ERROR && inputInvalid}
-  ${({ status }) => status === InputStatus.SUCCESS && inputValid}
-`;
-
-const FormError = styled.div`
-  font-size: 0.8rem;
-  min-height: 20px;
-  margin-top: 4px;
-  color: #ff6b6b;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  margin: 1rem;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
+  justify-content: center;
+  margin: 1rem;
 `;
 
 const FormButton = styled.button`
-  margin: 1rem 0;
-  font-size: 1.5rem;
+  margin: 1rem;
+  font-size: 1rem;
   font-weight: bold;
   border: none;
-  border-radius: 10px;
-  background: #e9967a;
-  width: 300px;
-  height: 70px;
+  border-radius: 2rem;
+  background: #ffa500;
+  width: 11rem;
+  height: 3rem;
   color: white;
+  transition: 0.4s;
   &:hover {
-    background: #e9865a;
+    background: #ff8339;
   }
+`;
+const InfoContainer = styled.div`
+  width: 80%;
+  margin: 1rem;
+  background: #fff0ba;
+  border-radius: 1rem;
+  display: flex;
+`;
+const Info = styled.div`
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  & p {
+    font-size: 0.8rem;
+    margin: 0.5rem;
+  }
+`;
+
+const FloatingContainer1 = styled.div`
+  position: absolute;
+  bottom: -30px;
+  right: -100px;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const FloatingContainer2 = styled.div`
+  position: absolute;
+  top: -7rem;
+  left: 1rem;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const FloatingContainer3 = styled.div`
+  position: absolute;
+  top: 10rem;
+  right: -10rem;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
