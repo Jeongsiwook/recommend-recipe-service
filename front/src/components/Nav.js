@@ -76,3 +76,8 @@ const Li = styled.li`
   font-size: 1rem;
   margin: 1rem;
 `;
+const P = styled.p`
+  font-family: 'notoSansKr';
+  font-size: 1rem;
+  margin: 1rem;
+`;

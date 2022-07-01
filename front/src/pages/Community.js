@@ -267,3 +267,7 @@ const Img = styled.img`
   background: none;
   cursor: pointer;
 `;
+const BtnContainer = styled.div`
+  display: flex;
+  margin: 0.5rem;
+`;
