@@ -25,7 +25,7 @@ const SignIn = () => {
   };
   const handleSubmit = async () => {
     try {
-      const res = await Api.post('users', {
+      const res = await Api.post('login', {
         email: id,
         password: pw,
       });
@@ -38,7 +38,7 @@ const SignIn = () => {
       navigate('/home');
     } catch (e) {
       alert(
-        '아이디 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.'
+        '이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.'
       );
     }
   };
@@ -55,7 +55,7 @@ const SignIn = () => {
               onChange={handleChange}
               type="text"
               name="id"
-              placeholder="아이디"
+              placeholder="이메일"
             ></Input>
           </Fieldset>
           <Fieldset>

@@ -40,7 +40,7 @@ const SignUp = () => {
       });
       navigate('/home');
     } catch (e) {
-      alert('이미 존재하거나 사용할 수 없는 ID 입니다.');
+      alert('이미 존재하거나 사용할 수 없는 이메일 입니다.');
     }
   };
 
@@ -50,7 +50,7 @@ const SignUp = () => {
       <FormContainer>
         <form>
           <Fieldset>
-            <Label htmlFor="id">아이디</Label>
+            <Label htmlFor="id">이메일</Label>
             <Input
               value={id}
               id="id"
