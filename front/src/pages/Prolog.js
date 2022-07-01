@@ -10,7 +10,7 @@ const Prolog = () => {
   return (
     <Container>
       <MainIntroduction>
-        <ContentP>
+        <ContentP isOpaicty={true}>
           <p>냉장고를 부탁해!</p>
           <p>냉장고를 부탁해!를 소개합니다.</p>
         </ContentP>
@@ -52,7 +52,7 @@ const Prolog = () => {
   );
 };
 
-export default Prolog;
+export default Prolog
 
 const marginValue = '1rem';
 // const paddingValue = '1rem';
@@ -136,4 +136,4 @@ const Button = styled.button`
     background: #e9865a;
   }
 }
-`;
+`
