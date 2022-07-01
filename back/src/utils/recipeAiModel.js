@@ -2,8 +2,9 @@ import axios from "axios";
 
 const recipeAiModel = async ({ title, ingredients }) => {
     const flask_base_URL = "http://localhost:5000";
-    const response = await axios.post(`${flask_base_URL}/recipe`, { title, ingredients });
-    return response.data;
+    return axios //
+        .post(`${flask_base_URL}/recipe`, { title, ingredients })
+        .then((res) => res.data);
 };
 
 /*

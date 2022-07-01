@@ -2,7 +2,6 @@ import cors from "cors";
 import express from "express";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-// import swaggerFile from "./swagger/swagger-output.json";
 import { commentRouter } from "./routers/commentRouter";
 import { postRouter } from "./routers/postRouter";
 import { recipeRouter } from "./routers/recipeRouter";
@@ -25,7 +24,11 @@ const options = {
         },
         servers: [{ url: "http://localhost:5001" }],
     },
-    apis: ["./src/routers/*", "./src/db/models/tables/*"],
+    apis: [
+        "./src/routers/*.js", //
+        "./src/db/schemas/*.js",
+        // "./src/db/models/tables/*.js",
+    ],
 };
 
 app.get("/", (req, res) => res.send("AI Recipe API"));
@@ -36,7 +39,6 @@ app.use(postRouter);
 app.use(recipeRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(options)));
-// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile, { explorer: true }));
 
 app.use(errorMiddleware);
 

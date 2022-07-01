@@ -6,7 +6,7 @@ class postController {
             const author = req.currentUserId;
             const { title, recipe, review } = req.body;
 
-            const newPost = { title, recipe, review, author };
+            const newPost = { title, author, recipe, review };
             const createdPost = await postService.addPost({ newPost });
 
             return res.status(200).json(createdPost);
@@ -29,9 +29,9 @@ class postController {
 
     static async getRank(req, res, next) {
         try {
-            const { filter, page } = req.params;
+            const page = req.query.page ?? 1;
 
-            const posts = await postService.getRank({ filter, page });
+            const posts = await postService.getRank({ page });
 
             return res.status(200).json(posts);
         } catch (error) {
@@ -77,6 +77,18 @@ class postController {
 
     static async likePost(req, res, next) {
         try {
+            const { id } = req.params;
+            const user_id = req.currentUserId;
+
+            const post = await postService.getPost({ id });
+            if (!post) throw new Error("게시물을 찾을 수 없습니다.");
+
+            if (user_id in post.likes) var toUpdate = { $pull: { likes: user_id } };
+            else var toUpdate = { $push: { likes: user_id } };
+
+            const likedPost = await postService.updatePost({ id, toUpdate });
+
+            return res.status(200).json(likedPost);
         } catch (error) {
             next(error);
         }

@@ -10,21 +10,15 @@ class User {
     }
 
     static findById({ userId }) {
-        return UserModel.findOne({ id: userId }).populate("recipes");
+        return UserModel.findById(userId);
     }
 
-    static update({ userId, newValues }) {
-        return UserModel.findOneAndUpdate(
-            { id: userId }, //
-            { $set: newValues },
-            { new: true },
-        );
+    static update({ userId, toUpdate }) {
+        return UserModel.findByIdAndUpdate(userId, toUpdate, { new: true });
     }
 
-    static async deleteById({ userId }) {
-        const deleteResult = await UserModel.deleteOne({ id: userId });
-        const isDataDeleted = deleteResult.deletedCount === 1;
-        return isDataDeleted;
+    static delete({ userId }) {
+        return UserModel.findByIdAndDelete(userId);
     }
 }
 
