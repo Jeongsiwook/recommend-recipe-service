@@ -21,7 +21,6 @@
  *           type: string
  *         ingredients:
  *           type: object
- *           default: {}
  *         content:
  *           type: string
  *         createdAt:

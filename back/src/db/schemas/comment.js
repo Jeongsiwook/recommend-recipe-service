@@ -17,15 +17,15 @@ import { Schema, model } from "mongoose";
  *       properties:
  *         _id:
  *           type: string
- *           format: ^[0-9a-f]{24}$
+ *           format: objectId
  *         post:
  *           type: string
- *           format: ^[0-9a-f]{24}$
+ *           format: objectId
  *         comment:
  *           type: string
  *         author:
  *           type: string
- *           format: ^[0-9a-f]{24}$
+ *           format: objectId
  *         createdAt:
  *           type: string
  *           format: date-time

@@ -18,17 +18,17 @@ import { Schema, model } from "mongoose";
  *       properties:
  *         _id:
  *           type: string
- *           format: ^[0-9a-f]{24}$
+ *           format: objectId
  *         title:
  *           type: string
  *         recipe:
  *           type: string
- *           format: ^[0-9a-f]{24}$
+ *           format: objectId
  *         review:
  *           type: string
  *         author:
  *           type: string
- *           format: ^[0-9a-f]{24}$
+ *           format: objectId
  *         createdAt:
  *           type: string
  *           format: date-time

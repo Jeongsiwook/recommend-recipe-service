@@ -17,11 +17,12 @@ import { Schema, model } from "mongoose";
  *       properties:
  *         _id:
  *           type: string
- *           format: ^[0-9a-f]{24}$
+ *           format: objectId
  *         title:
  *           type: string
  *         ingredients:
  *           type: array
+ *           example: [ingredient1, ingredient2]
  *         content:
  *           type: string
  *         createdAt:

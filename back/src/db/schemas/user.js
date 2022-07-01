@@ -17,7 +17,7 @@ import { Schema, model } from "mongoose";
  *       properties:
  *         _id:
  *           type: string
- *           format: ^[0-9a-f]{24}$
+ *           format: objectId
  *         email:
  *           type: string
  *           format: email

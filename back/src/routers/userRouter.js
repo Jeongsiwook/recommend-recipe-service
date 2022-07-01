@@ -69,7 +69,7 @@ userRouter.post("/users", async (req, res, next) => {
  *   /login:
  *     post:
  *       tags: [User]
- *       summary: Create User
+ *       summary: Login
  *       requestBody:
  *         required: true
  *         content:
@@ -123,9 +123,9 @@ userRouter.post("/login", async (req, res, next) => {
  *           required: true
  *           schema:
  *             type: string
- *             format: ^[0-9a-f]{24}$
+ *             format: objectId
  *       tags: [User]
- *       summary: Create User
+ *       summary: Read User
  *       responses:
  *         200:
  *           description: Success
@@ -149,6 +149,38 @@ userRouter.get("/users/:id", loginRequired, async (req, res, next) => {
     }
 });
 
+/**
+ * @swagger
+ * paths:
+ *   /users/{id}:
+ *     put:
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *             format: ObjectId
+ *       tags: [User]
+ *       summary: Update User
+ *       requestBody:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
 userRouter.put("/users", loginRequired, async (req, res, next) => {
     try {
         const userId = req.currentUserId;
@@ -167,6 +199,29 @@ userRouter.put("/users", loginRequired, async (req, res, next) => {
     }
 });
 
+/**
+ * @swagger
+ * paths:
+ *   /users/{id}:
+ *     delete:
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *             format: ^[0-9a-f]{24}$
+ *       tags: [User]
+ *       summary: Delete User
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             text/plain:
+ *               schema:
+ *                 type: string
+ *                 example: OK
+ */
 userRouter.delete("/users", loginRequired, async (req, res, next) => {
     try {
         const userId = req.currentUserId;

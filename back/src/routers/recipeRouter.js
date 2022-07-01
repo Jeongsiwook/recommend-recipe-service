@@ -26,10 +26,9 @@ const recipeRouter = Router();
  *               properties:
  *                 title:
  *                   type: string
- *                   example: "Pasta Recipe"
  *                 ingredients:
  *                   type: array
- *                   example: [bazil, sauce, noodle]
+ *                   example: [ingredient1, ingredient2]
  *       responses:
  *         200:
  *           description: Success
