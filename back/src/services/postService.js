@@ -15,7 +15,7 @@ class postService {
     }
 
     static getRank({ page }) {
-        return Post.find({})
+        return Post.find()
             .populate("author", "name")
             .sort({ views: -1 })
             .skip((page - 1) * 10)

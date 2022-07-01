@@ -9,8 +9,8 @@ class Post {
         return PostModel.findById(id);
     }
 
-    static find({}) {
-        return PostModel.find({});
+    static find() {
+        return PostModel.find();
     }
 
     static update({ id, toUpdate }) {
