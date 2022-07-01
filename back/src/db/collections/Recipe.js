@@ -5,8 +5,8 @@ class Recipe {
         return RecipeModel.create(newRecipe);
     }
 
-    static findById({ id }) {
-        return RecipeModel.findById(id);
+    static find(filter) {
+        return RecipeModel.find(filter);
     }
 
     static delete({ recipeId }) {

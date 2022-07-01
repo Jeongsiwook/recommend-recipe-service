@@ -20,8 +20,6 @@ import { Schema, model } from "mongoose";
  *           format: objectId
  *         title:
  *           type: string
- *         author:
- *           type: string
  *         ingredients:
  *           type: array
  *           example: [ingredient1, ingredient2]
@@ -42,11 +40,6 @@ const RecipeSchema = new Schema(
             type: String,
             trim: true,
             required: true,
-        },
-        author: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-            required: false,
         },
         ingredients: {
             type: Array,

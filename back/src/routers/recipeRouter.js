@@ -64,10 +64,7 @@ recipeRouter.post("/recipes", async (req, res, next) => {
     try {
         const { title, ingredients } = req.body;
 
-        const recipe = await recipeService.findOne({ title, ingredients });
-        if (recipe.errorMessage) {
-            throw new Error(recipe.errorMessage);
-        }
+        const recipe = await recipeService.getRecipe({ title, ingredients });
 
         return res.status(200).json(recipe);
     } catch (error) {
@@ -106,54 +103,13 @@ recipeRouter.post("/recipes", async (req, res, next) => {
  */
 recipeRouter.post("/recipes/register", loginRequired, async (req, res, next) => {
     try {
-        const author = req.currentUserId;
         const { title, ingredients, recipe } = req.body;
 
-        const newRecipe = { title, author, ingredients, recipe };
+        const newRecipe = { title, ingredients, recipe };
 
-        const createdRecipe = await recipeService.addRecipe(newRecipe);
+        const createdRecipe = await recipeService.addRecipe({ newRecipe });
 
         return res.status(201).json(createdRecipe);
-    } catch (error) {
-        next(error);
-    }
-});
-
-/**
- * @swagger
- * paths:
- *   /recipes/:id:
- *     parameters:
- *         - in: path
- *           name: id
- *           required: true
- *           schema:
- *             type: string
- *             format: objectId
- *     delete:
- *       tags: [Recipe]
- *       summary: Delete Recipe
- *       responses:
- *         200:
- *           description: Success
- *           content:
- *             text/plain:
- *               schema:
- *                 type: string
- *                 example: OK
- */
-recipeRouter.delete("/recipes/:id", loginRequired, async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        const user_id = req.currentUserId;
-
-        const data = await recipeService.getRecipe({ id });
-        if (!data) throw new Error("레시피를 찾을 수 없습니다.");
-        if (data.author != user_id) throw new Error("접근 권한이 없습니다.");
-
-        await recipeService.deleteRecipe({ recipeId: id });
-
-        return res.sendStatus(200);
     } catch (error) {
         next(error);
     }

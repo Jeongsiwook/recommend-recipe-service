@@ -12,12 +12,21 @@ class recipeService {
         return Recipe.create({ newRecipe });
     }
 
-    static getRecipe({ id }) {
-        return Recipe.findById({ id });
-    }
+    static async getRecipe({ title, ingredients }) {
+        const result = [];
 
-    static deleteRecipe({ recipeId }) {
-        return Recipe.delete({ recipeId });
+        const recipes = await Recipe.find({});
+        recipes.map((recipe) => {
+            recipe.ingredients.map((alpha) => {
+                const count = ingredients.filter((beta) => alpha === beta);
+                if (count.length > 0) result.push(recipe);
+            });
+        });
+
+        const titles = await Recipe.find({ title });
+        if (titles.length > 0) result.push(titles);
+
+        return result[Math.floor(Math.random() * result.length)];
     }
 }
 
