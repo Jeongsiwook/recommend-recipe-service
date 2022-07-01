@@ -28,7 +28,7 @@ const userRouter = Router();
  *                 name:
  *                   type: string
  *                 email:
- *                   type: array
+ *                   type: string
  *                   format: email
  *                 password:
  *                   type: string

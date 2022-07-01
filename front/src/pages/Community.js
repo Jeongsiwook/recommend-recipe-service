@@ -79,9 +79,8 @@ const Community = () => {
         </Div2>
       </Div1>
       <PostDiv>
-        {/*
         {filterValue === 'thumb'
-          ? data
+          ? datas
               .sort((a, b) => Number(b.good) - Number(a.good))
               .map((d) => (
                 <Post>
@@ -102,7 +101,7 @@ const Community = () => {
                   <p>{d.date}</p>
                 </Post>
               ))
-          : data
+          : datas
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               .map((d) => (
                 <Post>
@@ -123,7 +122,8 @@ const Community = () => {
                   <p>{d.date}</p>
                 </Post>
               ))}
-        */}
+
+        {/*
         {sortedList.map((d, idx) => (
           <Post key={`post-${idx}`}>
             <div
@@ -181,6 +181,7 @@ const Community = () => {
             <p style={{ fontWeight: 'bold' }}>좋아요 {d.good}개</p>
           </Post>
         ))}
+        */}
       </PostDiv>
       <Filter2>
         <Selector>
