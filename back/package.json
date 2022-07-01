@@ -2,12 +2,15 @@
     "name": "back",
     "version": "1.0.0",
     "main": "index.js",
-    "scripts": {
-        "start": "nodemon index.js --exec babel-node",
-        "prestart": "node ./src/swagger/swagger.js"
-    },
-    "author": "Team 11",
+    "author": "KIM HYUNSEO",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://kdt-gitlab.elice.io/ai_track/class_04/ai_project/team11/ai-project/-/tree/master/back"
+    },
+    "scripts": {
+        "start": "nodemon index.js --exec babel-node"
+    },
     "dependencies": {
         "@sindresorhus/is": "^4.6.0",
         "axios": "^0.27.2",
@@ -17,11 +20,8 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.4.1",
         "mysql2": "^2.3.3",
-        "onnxjs": "^0.1.8",
-        "onnxjs-node": "^1.4.0",
         "sequelize": "^6.21.2",
         "sequelize-cli": "^6.4.1",
-        "swagger-autogen": "^2.21.4",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
