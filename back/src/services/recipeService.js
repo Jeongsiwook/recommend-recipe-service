@@ -5,12 +5,8 @@ class recipeService {
         const createdRecipe = await recipeAiModel({ title, ingredients });
 
         const recipe = createdRecipe.split("<unused4>")[1].slice(0, -15);
-        const result = {
-            title,
-            ingredients,
-            recipe,
-        };
-        return result;
+
+        return { title, ingredients, recipe };
     }
 }
 

@@ -1,34 +1,64 @@
 import { Schema, model } from "mongoose";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - _id
+ *         - email
+ *         - name
+ *         - password
+ *         - createdAt
+ *         - updatedAt
+ *         - __v
+ *       properties:
+ *         _id:
+ *           type: string
+ *           format: objectId
+ *         email:
+ *           type: string
+ *           format: email
+ *         name:
+ *           type: string
+ *         password:
+ *           type: string
+ *           format: password
+ *         description:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *         __v:
+ *           type: integer
+ */
 const UserSchema = new Schema(
     {
-        id: {
-            type: String,
-            required: true,
-        },
         email: {
             type: String,
+            trim: true,
             required: true,
         },
         name: {
             type: String,
+            trim: true,
             required: true,
         },
         password: {
             type: String,
+            trim: true,
             required: true,
         },
         description: {
             type: String,
+            trim: true,
             required: false,
-            default: "설명이 아직 없습니다. 추가해 주세요.",
         },
-        recipes: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "Recipe",
-            },
-        ],
     },
     { timestamps: true },
 );

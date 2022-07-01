@@ -6,12 +6,12 @@ class postService {
     }
 
     static async getPost({ id }) {
-        const post = await Post.findById({ id }).lean();
-        post.comments = await Comment.find({ post: id }).lean();
+        const post = await Post.findById({ id });
+        post.comments = await Comment.find({ post: id });
         return post;
     }
 
-    static getRank({ filter, page }) {
+    static getRank({ page }) {
         return Post.find({ filter })
             .populate("author", "name")
             .skip((page - 1) * 10)
@@ -19,11 +19,11 @@ class postService {
     }
 
     static updatePost({ id, toUpdate }) {
-        return Post.updateById({ id, toUpdate });
+        return Post.update({ id, toUpdate });
     }
 
     static deletePost({ id }) {
-        return Post.deleteById({ id });
+        return Post.delete({ id });
     }
 }
 
