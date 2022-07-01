@@ -9,9 +9,9 @@ import { Schema, model } from "mongoose";
  *       required:
  *         - _id
  *         - title
+ *         - author
  *         - recipe
  *         - review
- *         - author
  *         - createdAt
  *         - updatedAt
  *         - __v
@@ -21,14 +21,24 @@ import { Schema, model } from "mongoose";
  *           format: objectId
  *         title:
  *           type: string
+ *         author:
+ *           type: string
+ *           format: objectId
  *         recipe:
  *           type: string
  *           format: objectId
  *         review:
  *           type: string
- *         author:
- *           type: string
- *           format: objectId
+ *         likes:
+ *           type: array
+ *           items:
+ *             type: string
+ *             format: objectId
+ *         views:
+ *           type: array
+ *           items:
+ *             type: string
+ *             format: objectId
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -45,6 +55,11 @@ const PostSchema = new Schema(
             required: true,
             trim: true,
         },
+        author: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
         recipe: {
             type: Schema.Types.ObjectId,
             ref: "Recipe",
@@ -55,9 +70,12 @@ const PostSchema = new Schema(
             required: true,
             trim: true,
         },
-        author: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
+        likes: {
+            type: Array,
+            required: true,
+        },
+        views: {
+            type: Array,
             required: true,
         },
     },

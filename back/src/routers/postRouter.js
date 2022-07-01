@@ -141,6 +141,22 @@ postRouter.put("/posts/:id", loginRequired, postController.updatePost);
  */
 postRouter.delete("/posts/:id", loginRequired, postController.deletePost);
 
+/**
+ * @swagger
+ * paths:
+ *   /posts/like/{id}:
+ *     post:
+ *       tags: [Post]
+ *       summary: Like to Post
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             text/plain:
+ *               schema:
+ *                 type: string
+ *                 example: OK
+ */
 postRouter.post("/posts/like/:id", loginRequired, postController.likePost);
 
 export { postRouter };

@@ -21,11 +21,11 @@ import { Schema, model } from "mongoose";
  *         post:
  *           type: string
  *           format: objectId
- *         comment:
- *           type: string
  *         author:
  *           type: string
  *           format: objectId
+ *         comment:
+ *           type: string
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -42,15 +42,15 @@ const CommentSchema = new Schema(
             ref: "Post",
             required: true,
         },
-        comment: {
-            type: String,
-            required: true,
-            trim: true,
-        },
         author: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true,
+        },
+        comment: {
+            type: String,
+            required: true,
+            trim: true,
         },
     },
     { timestamps: true },
