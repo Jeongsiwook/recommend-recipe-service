@@ -10,19 +10,19 @@ class User {
     }
 
     static findById({ userId }) {
-        return UserModel.findOne({ id: userId });
+        return UserModel.findById(userId);
     }
 
     static update({ userId, newValues }) {
-        return UserModel.findOneAndUpdate(
-            { id: userId }, //
+        return UserModel.findByIdAndUpdate(
+            userId, //
             { $set: newValues },
             { new: true },
         );
     }
 
     static async deleteById({ userId }) {
-        const deleteResult = await UserModel.deleteOne({ id: userId });
+        const deleteResult = await UserModel.deleteById(userId);
         const isDataDeleted = deleteResult.deletedCount === 1;
         return isDataDeleted;
     }

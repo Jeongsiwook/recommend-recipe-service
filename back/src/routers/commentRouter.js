@@ -42,11 +42,11 @@ commentRouter.post("/posts/comments", loginRequired, commentController.addCommen
 /**
  * @swagger
  * paths:
- *   /posts/{post}/comments:
+ *   /posts/{id}/comments:
  *     get:
  *       parameters:
  *         - in: path
- *           name: post
+ *           name: id
  *           required: true
  *           schema:
  *             type: string
@@ -65,7 +65,7 @@ commentRouter.post("/posts/comments", loginRequired, commentController.addCommen
  *               schema:
  *                 $ref: '#/components/schemas/Comment'
  */
-commentRouter.get("/posts/:post/comments", commentController.getComment);
+commentRouter.get("/posts/:id/comments", commentController.getComment);
 
 /**
  * @swagger

@@ -134,7 +134,7 @@ userRouter.post("/login", async (req, res, next) => {
  *               schema:
  *                 $ref: '#/components/schemas/User'
  */
-userRouter.get("/users/:id", loginRequired, async (req, res, next) => {
+userRouter.get("/users/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
 
