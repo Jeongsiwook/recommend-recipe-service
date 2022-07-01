@@ -4,7 +4,11 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
-  const isLogin = false;
+  const isLogin = sessionStorage.getItem('userToken');
+
+  const handleClick = () => {
+    sessionStorage.clear();
+  };
 
   return (
     <Container>
@@ -33,8 +37,8 @@ const Nav = () => {
         {isLogin ? (
           <>
             <Li>
-              <NavLink to="/prolog">
-                <P>로그아웃</P>
+              <NavLink to="/">
+                <P onClick={handleClick}>로그아웃</P>
               </NavLink>
             </Li>
             <Li>

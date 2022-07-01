@@ -80,7 +80,7 @@ const Result = () => {
               onClick={handleBtnClick}
               style={{ border: 'none', background: 'white' }}
             >
-              <Img alt="북마크" src="./imgs/bookmark.png" />
+              <Img alt="북마크" src="./imgs/save.png" />
             </button>
           </BtnContainer>
         </Content>
@@ -138,6 +138,7 @@ const Img = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   background: none;
+  cursor: pointer;
 `;
 const ButtonContainer = styled.div`
   display: flex;
