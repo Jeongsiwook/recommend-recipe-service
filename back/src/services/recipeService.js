@@ -14,7 +14,17 @@ class recipeService {
 
     static async getRecipe({ title, ingredients }) {
         const titles = await Recipe.find({ title });
-        if (titles) return titles;
+        if (titles.length === 1) return titles[0];
+        else if (titles.length > 1) {
+            const result = [];
+            titles.map((recipe) => {
+                recipe.ingredients.map((alpha) => {
+                    const count = ingredients.filter((beta) => alpha === beta);
+                    if (count.length > 0) result.push(recipe);
+                });
+            });
+            return result[Math.floor(Math.random() * result.length)];
+        }
 
         const result = [];
         const recipes = await Recipe.find({});
