@@ -31,8 +31,8 @@ class commentController {
     static async updateComment(req, res, next) {
         try {
             const { id } = req.params;
-            const user_id = req.currentUserId;
             const { comment } = req.body;
+            const user_id = req.currentUserId;
 
             const data = await commentService.getComment({ id });
             if (!data) throw new Error("댓글을 찾을 수 없습니다.");
