@@ -30,10 +30,11 @@ const Home = () => {
         title: cooking,
         ingredients: ingredientsPreprocessing,
       });
+      console.log(res.data);
 
       setResultCooking(res.data.title);
       setResultIngredients(res.data.ingredients);
-      setResultRecipe(res.recipe);
+      setResultRecipe(res.data.recipe);
 
       navigate('/result');
     } catch (e) {
