@@ -28,7 +28,7 @@ const Nav = () => {
           <>
             <Li>
               <NavLink to="/">
-                <P onClick={handleClick}>로그아웃</P>
+                <p onClick={handleClick}>로그아웃</p>
               </NavLink>
             </Li>
             <Li>
