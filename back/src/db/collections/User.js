@@ -10,7 +10,7 @@ class User {
     }
 
     static findById({ userId }) {
-        return UserModel.findOne({ id: userId }).populate("recipes");
+        return UserModel.findOne({ id: userId });
     }
 
     static update({ userId, newValues }) {

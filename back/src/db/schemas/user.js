@@ -1,5 +1,42 @@
 import { Schema, model } from "mongoose";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - _id
+ *         - email
+ *         - name
+ *         - password
+ *         - createdAt
+ *         - updatedAt
+ *         - __v
+ *       properties:
+ *         _id:
+ *           type: string
+ *           format: ^[0-9a-f]{24}$
+ *         email:
+ *           type: string
+ *           format: email
+ *         name:
+ *           type: string
+ *         password:
+ *           type: string
+ *           format: password
+ *         description:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *         __v:
+ *           type: integer
+ */
 const UserSchema = new Schema(
     {
         email: {

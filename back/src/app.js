@@ -25,7 +25,11 @@ const options = {
         },
         servers: [{ url: "http://localhost:5001" }],
     },
-    apis: ["./src/routers/*", "./src/db/models/tables/*"],
+    apis: [
+        "./src/routers/*.js", //
+        "./src/db/schemas/*.js",
+        // "./src/db/models/tables/*.js",
+    ],
 };
 
 app.get("/", (req, res) => res.send("AI Recipe API"));

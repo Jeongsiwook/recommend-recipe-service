@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { User as UserModel } from "../db/models/user";
 
 class userService {
-    static async addUser({ name, email, password }) {
+    static async addUser({ name, email, password, description }) {
         const user = await User.findByEmail({ email });
         if (user) {
             return { errorMessage: "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요." };
@@ -15,15 +15,16 @@ class userService {
             name,
             email,
             password: hashedPassword,
+            description,
         };
 
-        // return User.create({ newUser });
-        return UserModel.create({ newUser });
+        // return UserModel.create({ newUser });
+        return User.create({ newUser });
     }
 
     static async getUser({ email, password }) {
-        // const user = await User.findByEmail({ email });
-        const user = await UserModel.findOne({ email });
+        // const user = await UserModel.findOne({ email });
+        const user = await User.findByEmail({ email });
         if (!user) {
             return { errorMessage: "해당 이메일은 가입 내역이 없습니다." };
         }
@@ -40,8 +41,9 @@ class userService {
     }
 
     static async setUser({ userId, toUpdate }) {
-        // let user = await User.findById({ userId });
-        let user = await UserModel.findById({ userId });
+        // const user = await UserModel.findById({ userId });
+        const user = await User.findById({ userId });
+
         if (!user) {
             return { errorMessage: "가입 내역이 없습니다." };
         }

@@ -5,14 +5,52 @@ import { loginRequired } from "../middlewares/loginRequired";
 
 const userRouter = Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ */
+
+/**
+ * @swagger
+ * paths:
+ *   /users:
+ *     post:
+ *       tags: [User]
+ *       summary: Create User
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: array
+ *                   format: email
+ *                 password:
+ *                   type: string
+ *                   format: password
+ *                 description:
+ *                   type: string
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
 userRouter.post("/users", async (req, res, next) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, description } = req.body;
         if (is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
         }
 
-        const newUser = { name, email, password };
+        const newUser = { name, email, password, description };
 
         const createdUser = await userService.addUser(newUser);
         if (createdUser.errorMessage) {
@@ -25,6 +63,40 @@ userRouter.post("/users", async (req, res, next) => {
     }
 });
 
+/**
+ * @swagger
+ * paths:
+ *   /login:
+ *     post:
+ *       tags: [User]
+ *       summary: Create User
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                   format: email
+ *                 password:
+ *                   type: string
+ *                   format: password
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 allOf:
+ *                   - type: object
+ *                     properties:
+ *                       token:
+ *                         type: string
+ *                         format: token
+ *                   - $ref: '#/components/schemas/User'
+ */
 userRouter.post("/login", async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -40,6 +112,28 @@ userRouter.post("/login", async (req, res, next) => {
     }
 });
 
+/**
+ * @swagger
+ * paths:
+ *   /users/{id}:
+ *     get:
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           schema:
+ *             type: string
+ *             format: ^[0-9a-f]{24}$
+ *       tags: [User]
+ *       summary: Create User
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ */
 userRouter.get("/users/:id", loginRequired, async (req, res, next) => {
     try {
         const { id } = req.params;

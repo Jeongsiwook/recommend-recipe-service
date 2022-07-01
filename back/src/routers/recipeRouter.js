@@ -4,13 +4,42 @@ import { recipeService } from "../services/recipeService";
 
 const recipeRouter = Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Recipe
+ */
+
+/**
+ * @swagger
+ * paths:
+ *   /recipes:
+ *     post:
+ *       tags: [Recipe]
+ *       summary: Create Recipe
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 title:
+ *                   type: string
+ *                   example: "Pasta Recipe"
+ *                 ingredients:
+ *                   type: array
+ *                   example: [bazil, sauce, noodle]
+ *       responses:
+ *         200:
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Recipe'
+ */
 recipeRouter.post("/recipes", async (req, res, next) => {
     try {
-        /*
-         #swagger.tags = ['Recipes']
-         #swagger.summary = 'ai 모델 기반 레시피 생성'
-         #swagger.description = 'input 바탕으로 레시피를 생성한다.'
-        */
         const { title, ingredients } = req.body;
         if (is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요.");
