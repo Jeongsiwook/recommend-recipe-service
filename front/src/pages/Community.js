@@ -122,66 +122,6 @@ const Community = () => {
                   <p>{d.date}</p>
                 </Post>
               ))}
-
-        {/*
-        {sortedList.map((d, idx) => (
-          <Post key={`post-${idx}`}>
-            <div
-              style={{
-                border: '0.1rem solid whitesmoke',
-                borderRadius: '1rem',
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: '1rem',
-                  margin: '1rem 0 0.3rem 1rem',
-                }}
-              >
-                {d.cooking}
-              </p>
-              <p
-                style={{
-                  fontSize: '1rem',
-                  margin: '0 0 1rem 1rem',
-                  color: 'gray',
-                }}
-              >
-                {d.writer} {'               '} {d.date}
-              </p>
-            </div>
-            <div
-              style={{
-                borderBottom: '0.1rem solid whitesmoke',
-              }}
-            >
-              <p>{d.ingredients}</p>
-              <p>{d.recipe}</p>
-            </div>
-            <div
-              style={{
-                borderBottom: '0.1rem solid whitesmoke',
-              }}
-            >
-              <p>{d.content}</p>
-            </div>
-
-            <BtnContainer>
-              <button style={{ border: 'none', background: 'white' }}>
-                <Img alt="좋아요" src="./imgs/heart.png" />
-              </button>
-              <button style={{ border: 'none', background: 'white' }}>
-                <Img alt="댓글" src="./imgs/comment.png" />
-              </button>
-              <button style={{ border: 'none', background: 'white' }}>
-                <Img alt="북마크" src="./imgs/bookmark.png" />
-              </button>
-            </BtnContainer>
-            <p style={{ fontWeight: 'bold' }}>좋아요 {d.good}개</p>
-          </Post>
-        ))}
-        */}
       </PostDiv>
       <Filter2>
         <Selector>
@@ -200,9 +140,11 @@ export default Community;
 const Container = styled.div`
   width: 100%;
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  background: #f5f6f7;
 `;
 const Div1 = styled.div`
   display: flex;

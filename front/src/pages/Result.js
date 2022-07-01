@@ -49,7 +49,7 @@ const Result = () => {
       <Nav />
       <Div>
         <Video muted autoPlay loop>
-          <Source src="./video/result.mp4" alt="요리" type="video/mp4" />
+          <Source src="./video/background.mp4" alt="요리" type="video/mp4" />
         </Video>
         <Content>
           <div
@@ -84,11 +84,6 @@ const Result = () => {
             </button>
           </BtnContainer>
         </Content>
-        <ButtonContainer>
-          <FormButton onClick={handleSubmit} buttonType="submit" type="button">
-            레시피 다시받기
-          </FormButton>
-        </ButtonContainer>
       </Div>
     </Container>
   );
@@ -98,6 +93,7 @@ export default Result;
 
 const Container = styled.div`
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,6 +104,7 @@ const Div = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 100%;
 `;
@@ -118,7 +115,6 @@ const Video = styled.video`
 `;
 const Content = styled.div`
   position: absolute;
-  margin: 7rem;
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -148,7 +144,6 @@ const ButtonContainer = styled.div`
 `;
 
 const FormButton = styled.button`
-  margin: 35rem;
   font-size: 1rem;
   font-weight: bold;
   border: none;
