@@ -31,8 +31,9 @@ const SignIn = () => {
       });
 
       const user = res.data;
+      const _id = user._id;
       const jwtToken = user.token;
-
+      sessionStorage.setItem('_id', _id);
       sessionStorage.setItem('userToken', jwtToken);
 
       navigate('/home');
@@ -89,6 +90,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   background: #f5f6f7;
 `;

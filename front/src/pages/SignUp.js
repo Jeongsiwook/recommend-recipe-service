@@ -110,6 +110,7 @@ const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   background: #f5f6f7;

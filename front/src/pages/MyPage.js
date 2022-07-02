@@ -5,14 +5,16 @@ import * as Api from '../Api';
 import styled from 'styled-components';
 
 const MyPage = () => {
+  const _id = sessionStorage.getItem('_id');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    // Api.get('users/test@test.com').then((res) => console.log(res));
-    setName('test');
-    setEmail('test@test.com');
+    Api.get(`users/${_id}`).then((res) => {
+      setName(res.data.name);
+      setEmail(res.data.email);
+    });
   }, []);
 
   return (

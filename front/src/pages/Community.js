@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
+import Nav from '../components/Nav';
+
 import styled from 'styled-components';
 
-import Nav from '../components/Nav';
+import * as Api from '../Api';
 
 const datas = [
   {
@@ -35,15 +39,67 @@ const datas = [
     date: '2022-06-05',
   },
 ];
+const modalStyle = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    zIndex: 10,
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    background: 'white',
+    overflow: 'auto',
+    top: '30vh',
+    left: '50vh',
+    right: '50vh',
+    bottom: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '1rem',
+    outline: 'none',
+    zIndex: 10,
+  },
+};
 
 const Community = () => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState(datas);
   const [filterValue, setFilterValue] = useState('new');
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [recipe, setRecipe] = useState('');
+  const [review, setReview] = useState('');
 
   const handleSelectFilter1 = (e) => {
     setFilterValue(e.target.value);
   };
-
+  const handleBtnClick = () => {
+    setIsOpen(true);
+  };
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+  const handleRecipeChange = (e) => {
+    setRecipe(e.target.value);
+  };
+  const handleReviewChange = (e) => {
+    setReview(e.target.value);
+  };
+  const modalHandler = () => {
+    setIsOpen(false);
+  };
+  const handleSubmit = async () => {
+    Api.post('posts', {
+      title,
+      recipe,
+      review,
+    });
+  };
   useEffect(() => {
     // TO DO: 서버에서 데이터 가져오기
   }, [filterValue, data]);
@@ -51,16 +107,86 @@ const Community = () => {
   return (
     <Container>
       <Nav />
-      <Div1>
-        <Div2>
-          <Filter1 name="sort" onChange={handleSelectFilter1}>
-            <option value="new" selected="selected">
-              최신순
-            </option>
-            <option value="thumb">추천순</option>
-          </Filter1>
-        </Div2>
-      </Div1>
+      <Div>
+        <BtnContainer>
+          <button
+            onClick={handleBtnClick}
+            style={{ border: 'none', background: 'none' }}
+          >
+            <Img alt="게시글 생성" src="./imgs/add.png" />
+          </button>
+        </BtnContainer>
+        <Filter1 name="sort" onChange={handleSelectFilter1}>
+          <option value="new" selected="selected">
+            최신순
+          </option>
+          <option value="thumb">추천순</option>
+        </Filter1>
+      </Div>
+      <Modal
+        isOpen={isOpen}
+        style={modalStyle}
+        onRequestClose={modalHandler} // 오버레이나 esc를 누르면 핸들러 동작
+        ariaHideApp={false}
+      >
+        <div
+          style={{
+            display: 'flex',
+            borderBottom: '0.1rem solid gray',
+            justifyContent: 'center',
+          }}
+        >
+          <p style={{ fontWeight: 'bold', margin: '1rem', fontSize: '1.5rem' }}>
+            게시물 만들기
+          </p>
+        </div>
+        <FormContainer>
+          <FormFieldset>
+            <FormLabel htmlFor="제목"></FormLabel>
+            <FormInput
+              value={title}
+              id="title"
+              onChange={handleTitleChange}
+              type="text"
+              name="title"
+              placeholder="제목"
+            />
+          </FormFieldset>
+
+          <FormFieldset>
+            <FormLabel htmlFor="recipe"></FormLabel>
+            <FormInput
+              id="recipe"
+              value={recipe}
+              onChange={handleRecipeChange}
+              type="text"
+              name="recipe"
+              placeholder="레시피"
+            />
+          </FormFieldset>
+          <FormFieldset>
+            <FormLabel htmlFor="review"></FormLabel>
+            <FormInput
+              id="review"
+              value={review}
+              onChange={handleReviewChange}
+              type="text"
+              name="review"
+              placeholder="리뷰"
+            />
+          </FormFieldset>
+
+          <ButtonContainer>
+            <FormButton
+              onClick={handleSubmit}
+              buttonType="submit"
+              type="button"
+            >
+              게시
+            </FormButton>
+          </ButtonContainer>
+        </FormContainer>
+      </Modal>
       <PostDiv>
         {filterValue === 'thumb'
           ? data
@@ -205,12 +331,11 @@ const Container = styled.div`
   background: whitesmoke;
   z-index: -1;
 `;
-const Div1 = styled.div`
+const Div = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 80%;
 `;
-const Div2 = styled.div``;
 const Filter1 = styled.select`
   display: flex;
   justify-content: center;
@@ -272,4 +397,53 @@ const Img = styled.img`
   height: 2.5rem;
   background: none;
   cursor: pointer;
+`;
+const FormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1rem;
+  border: none;
+  border-radius: 2rem;
+`;
+const FormFieldset = styled.fieldset`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  margin: 0 1rem;
+`;
+
+const FormLabel = styled.label`
+  display: flex;
+  justify-content: center;
+`;
+
+const FormInput = styled.input`
+  display: block;
+  width: 80%;
+  border: none;
+  padding: 1rem;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+`;
+
+const FormButton = styled.button`
+  margin: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 2rem;
+  background: #ffa500;
+  width: 11rem;
+  height: 3rem;
+  color: white;
+  transition: 0.4s;
+  &:hover {
+    background: #ff8339;
+  }
 `;

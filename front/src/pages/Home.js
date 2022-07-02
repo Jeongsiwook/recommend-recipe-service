@@ -30,7 +30,6 @@ const Home = () => {
         title: cooking,
         ingredients: ingredientsPreprocessing,
       });
-      console.log(res.data);
 
       setResultCooking(res.data.title);
       setResultIngredients(res.data.ingredients);
@@ -114,12 +113,13 @@ const Home = () => {
 export default Home;
 
 const Container = styled.div`
-  box-sizing: border-box;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
 `;
 
 const FormContainer = styled.form`

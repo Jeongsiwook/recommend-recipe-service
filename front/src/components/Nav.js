@@ -1,18 +1,19 @@
-// Nav
 import React from 'react';
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+
+import styled from 'styled-components';
 
 const Nav = () => {
   const isLogin = sessionStorage.getItem('userToken');
 
+  // 로그아웃 버튼 클릭시
   const handleClick = () => {
     sessionStorage.clear();
   };
 
   return (
     <Container>
-      <UlLogo style={{ display: 'flex', alignItems: 'center' }}>
+      <UlLogo>
         <Li>
           <NavLink to="/home">
             <img
@@ -77,6 +78,7 @@ const Container = styled.div`
 `;
 const UlLogo = styled.ul`
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   height: 4rem;
   width: 40%;
